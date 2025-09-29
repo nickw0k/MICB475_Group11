@@ -5,7 +5,9 @@ Hello Chat
 Meeting 1 
 
 People present: Evelyn, Hans, Jason, Luna, Thomas, Nicholas 
+
 Notetaker: Nicholas Kwok
+
 Minute meetings:
 
 Expectations: 
