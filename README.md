@@ -1,6 +1,6 @@
 #MICB475: Data Science Research in Microbiology 2025W Group 11
 
-Meeting 1 
+Meeting 1 minutes
 
 People present: Evelyn, Hans, Jason, Luna, Thomas, Nicholas 
 
