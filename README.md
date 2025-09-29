@@ -4,7 +4,7 @@ Hello Chat
 
 Meeting 1 
 
-#eople present: Evelyn, Hans, Jason, Luna, Thomas, Nicholas 
+People present: Evelyn, Hans, Jason, Luna, Thomas, Nicholas 
 Notetaker: Nicholas Kwok
 Minute meetings:
 
