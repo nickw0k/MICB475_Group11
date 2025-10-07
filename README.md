@@ -8,6 +8,7 @@
 
     
 ## Meeting 1 
+Date: Monday, Sept. 29 (2:00-2:45)
 
 Minutes prepared by Nicholas Kwok.
 
@@ -96,9 +97,39 @@ Check that questions fit the “novel and analyzable” criteria.
 
 
 ## Meeting 2
+Date: Tuesday, Oct 7th (2:00-2:45)
 
 Notetaker: Luna Kurokawa
+
 People present: Evelyn, Hans, Jason, Luna, Thomas, Nicholas 
+
+- Decide on which topic to do today
+- Proposal is in two weeks so we want to ideally start thinking about the research question today
+
+- 3 Covid supplemental papers was accepted - Evelyn does not agree with of one of the paper's analysis but the data itself was okay. Only diversity metrics were done
+- We can do paired data using 2 of the covid datasets but it might be challenging due to the study location on the body of each paper (oral vs. gut). We don't have to combine it but anlayse it parallel (US and Mexico). (pre-analysis in qiime is separate) If one turns out to be a better dataset than the other we can just focus on one. Start with US dataset and Mexico dataset and if we have time contiue on to the China dataset. 
+- Mexico looks saliva samples and has better annotiations 
+- Jordan and Russia covid dataset do not have controls 
+- Continuing on with the fecal analysis from the covid paper is anlso an option
+- The big picture is to find micorbial signature of COVID patients in oral vs fecal microbiomes.
+
+- By next week:
+    - Commit on dataset 
+    - Make a formal research question
+    - What we want to explore in this topic
+         - abundance? function of community? etc?
+    
+    - Start on qiime2 analysis
+    - Hans will help us build a outline for the proposal
+    - Next week we can start dicussing about what to analyse. 
+    
+
+
+
+
+
+
+
 
 
 
