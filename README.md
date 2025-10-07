@@ -35,14 +35,14 @@ Check that questions fit the “novel and analyzable” criteria.
 4. Division of Work
   - Based on chosen theme (COVID/smoking/infant/Sepsis), Assign tasks for remaining dataset groups:
 
-    Proposed division of work: 
-    • (If there are more than 1 explorable themes, 2 members analyze metadata + come up w/ novel research questions of each theme.)
-    • (If there is only 1 explorable theme, 2 members try to come up with novel research questions, 2 analyze the metadata.
+    Proposed division of work:
+    - (If there are more than 1 explorable themes, 2 members analyze metadata + come up w/ novel research questions of each theme.)
+    - (If there is only 1 explorable theme, 2 members try to come up with novel research questions, 2 analyze the metadata.
   
     Tasks before Meeting 3:
-    • Confirm data availability & metadata quality.
-    • Import one dataset into QIIME2 and generate a basic summary (ASV table, metadata linking).
-    • Start a shared Google Doc for research-question drafting.
+    - Confirm data availability & metadata quality.
+    - Import one dataset into QIIME2 and generate a basic summary (ASV table, metadata linking).
+    - Start a shared Google Doc for research-question drafting.
     
 5. Next Steps & Deadlines 
 
