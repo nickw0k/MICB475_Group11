@@ -20,10 +20,10 @@ Notetaker: Luna
     Discussion Prompts:
       - Evelyn’s feedback identified three COVID studies with usable metadata (Wei et al. 2023; Serrato et al. 2023; Newsome et al. 2021).
       - Compare COVID vs Infant Feeding vs Sepsis vs Smoking datasets for:
-            • Metadata completeness (accession IDs, n size, geographic range)
-            • Microbiome site (oral, gut, saliva, fecal)
-            • Novelty / previous analyses (saturation of literature)
-            • Feasibility of downloading and processing (16S vs metagenomic)
+        Metadata completeness (accession IDs, n size, geographic range)
+        Microbiome site (oral, gut, saliva, fecal)
+        Novelty / previous analyses (saturation of literature)
+        Feasibility of downloading and processing (16S vs metagenomic)
             
   - *Final Goal: Vote for top two datasets to pilot in QIIME2.*
   
