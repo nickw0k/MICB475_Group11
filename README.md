@@ -4,6 +4,7 @@
   * [Meeting 1](#meeting-1)
   * [Meeting 2 Agenda](#meeting-2-Agenda)
   * [Meeting 2](#meeting-2)
+  * [Meeting 3 Agenda](#meeting-3)
 
 
     
@@ -123,14 +124,36 @@ People present: Evelyn, Hans, Jason, Luna, Thomas, Nicholas
     - Hans will help us build a outline for the proposal
     - Next week we can start dicussing about what to analyse. 
     
+## Meeting 3 Agenda
+Created by Thomas Hesselbo
+October 14th, 2025:  2:00pm - 2:45pm
+LSI 1510
+Notetaker: Thomas Hesselbo
 
+1. Make the final decision on which dataset(s) to use
+    - Decide if we are going to use the COVID, Infant nutrition, or Smoking dataset(s).
+        - This was not spoken about during the last discussion as COVID dataset discussion dominated the conversation.
+          If COVID, decide which of the 3 COVID data sets to use. I.E. Jordan + Mexico, if needed + China
 
-
-
-
-
-
-
-
-
-
+2. Determine area of analysis within the datasets
+    - Selection of parameters and approach to analysis
+        - This will rely on analysis of previous papers to avoid covering the same topic (I.E., American and Mexico research question comprehensiveness).
+3. Final Formulation of initial research question (It may change later on depending on the dataset results and so on).
+    - Presentation of research questions made by group members
+    - Decide if research question will be predictive or descriptive
+        - (I.E., can x microbiome be used to determine likelihood of y disease vs x and y microbiomes have distinctive compositions based on z).
+    - Largely dependent on the area of analysis and quality of data.
+      
+4. Proposal outline
+   - Overall Timeline
+   - Division of work
+      - Citation
+      - Denoising tool
+      - Sample size + sequencing depth (pre and post denoising)
+      - Max read length
+      - Read length trends
+      - Read truncation
+      - Read quality plot
+      - Sample selection
+      - Rarefaction depth
+      - Rarefaction curve
