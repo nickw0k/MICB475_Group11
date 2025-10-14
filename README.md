@@ -5,6 +5,7 @@
   * [Meeting 2 Agenda](#meeting-2-Agenda)
   * [Meeting 2](#meeting-2)
   * [Meeting 3 Agenda](#meeting-3-Agenda)
+  * [Meeting 3](#meeting-3)
 
 
     
@@ -157,3 +158,40 @@ Notetaker: Thomas Hesselbo
       - Sample selection
       - Rarefaction depth
       - Rarefaction curve
+    
+        
+## Meeting 3
+
+Participant Thomas, Evelyn, Jason, Nicholas, Hans
+
+1. Dataset
+   - Settle on COVID data sets
+   - For the sub datasets, unsure:
+2. Research question:
+   - Usage of AI tool "undermine"
+   - Predictive vs descriptive : a matter of preference, model training (predictive)
+     - Using one dataset to predict data in another (testing vs training dataset) may cause problems if microbiomes are too different
+   - Broad question: multiple aims for answering the question
+3. Proposal timeline:
+   - Need to decide on a research question ASAP as by next monday is too short of a timeframe before     proposal is due.
+
+ 4. Pre- pre meeting 4
+   - Create code for rarefaction analysis before pre pre meeting
+   - Two potential research questions per person on COVID dataset
+
+ 5. Pre meeting 4
+    - Final proposed research question
+    - Introduction (potentially, to be discussed during pre-pre meeting)
+    - Sub dataset decision
+
+
+Notes on COVID microbiome paper from Nicholas:
+   In Newsome et al. and most early COVID microbiome papers, researchers only described taxonomic shifts (changes in abundance of genera/families).
+They did not extend these findings to functional potential (what those microbes might be doing).
+If you use the same 16S rRNA data but add a new functional annotation layer, for example:
+Use PICRUSt2 to infer KEGG pathways from your USA cohort (Newsome dataset), or
+Map predicted enzyme functions (MetaCyc pathways) and test how they differ between infected/recovered/control,
+then you’re generating novel biological insight from existing data.
+That’s legitimate novelty because:
+The functional inference wasn’t done in the original paper.
+You’re testing different biological questions (e.g., “Does recovery correlate with restoration of butyrate biosynthesis pathways?”).
