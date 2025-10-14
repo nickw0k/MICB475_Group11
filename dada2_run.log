@@ -1,0 +1,19 @@
+R version 4.3.3 (2024-02-29) 
+Loading required package: Rcpp
+DADA2: 1.30.0 / Rcpp: 1.0.14 / RcppParallel: 5.1.9 
+2) Filtering .............................................................................................
+3) Learning Error Rates
+222282940 total bases in 1010377 reads from 18 samples will be used for learning the error rates.
+4) Denoise samples 
+.............................................................................................
+5) Remove chimeras (method = consensus)
+6) Report read numbers through the pipeline
+7) Write output
+Running external command line application(s). This may print messages to stdout and/or stderr.
+The command(s) being run are below. These commands cannot be manually re-run as they will depend on temporary files that no longer exist.
+
+Command: run_dada.R --input_directory /tmp/qiime2/root/data/c2808cfc-dfaf-46f7-b208-838a3badc954/data --output_path /tmp/tmpub8127k0/output.tsv.biom --output_track /tmp/tmpub8127k0/track.tsv --filtered_directory /tmp/tmpub8127k0 --truncation_length 220 --trim_left 0 --max_expected_errors 2.0 --truncation_quality_score 2 --max_length Inf --pooling_method independent --chimera_method consensus --min_parental_fold 1.0 --allow_one_off False --num_threads 2 --learn_min_reads 1000000 --homopolymer_gap_penalty NULL --band_size 16
+
+Saved FeatureTable[Frequency] to: usa_table.qza
+Saved FeatureData[Sequence] to: usa_rep-seqs.qza
+Saved SampleData[DADA2Stats] to: usa_stats.qza
