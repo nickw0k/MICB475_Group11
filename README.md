@@ -162,7 +162,7 @@ Notetaker: Thomas Hesselbo
         
 ## Meeting 3
 
-Participant Thomas, Evelyn, Jason, Nicholas, Hans
+Participant Thomas, Luna, Jason, Nicholas, Hans
 
 1. Dataset
    - Settle on COVID data sets
@@ -195,3 +195,4 @@ then you’re generating novel biological insight from existing data.
 That’s legitimate novelty because:
 The functional inference wasn’t done in the original paper.
 You’re testing different biological questions (e.g., “Does recovery correlate with restoration of butyrate biosynthesis pathways?”).
+
