@@ -206,23 +206,23 @@ Time: 2:00 – 2:45 PM
 Location: LSI 1416
 
 **1. Finalize main research question for the project**
-     - Discussed and decided on one prospective question to bring to Hans: Do age and sex-specific differences in the commensal microbiota influence the abundance and functional roles of microbial marker species that differentiate severe from mild COVID-19 patients?
-       - One issue with this question: QIIME2 analysis beta-diversity metric showed that there no significant differences between male and female microbiome (p-value > 0.05)
-       - Have back-up research questions ready in case the question above is not good enough:
-         - Does functional redundancy among indicator taxa differ between infection and recovery states?
-         - Are specific immune-related metabolic pathways (tryptophan, butyrate, bile acid metabolism) reliable functional indicators of recovery?
+   - Discussed and decided on one prospective question to bring to Hans: Do age and sex-specific differences in the commensal microbiota influence the abundance and functional roles of microbial marker species that differentiate severe from mild COVID-19 patients?
+     - One issue with this question: QIIME2 analysis beta-diversity metric showed that there no significant differences between male and female microbiome (p-value > 0.05)
+     - Have back-up research questions ready in case the question above is not good enough:
+       - Does functional redundancy among indicator taxa differ between infection and recovery states?
+       - Are specific immune-related metabolic pathways (tryptophan, butyrate, bile acid metabolism) reliable functional indicators of recovery?
 
 **2. Determine division of work for the proposal**
-     - Decide on the parts of the proposal for each member to work on or if multiple members will on the same parts together
-     - Decide project timeline for the proposal
-     - Create a workflow overview chart for the proposal
+   - Decide on the parts of the proposal for each member to work on or if multiple members will on the same parts together
+   - Decide project timeline for the proposal
+   - Create a workflow overview chart for the proposal
   
 **3. Decide on a time to meet and discuss outside of regular team meetings before proposal deadline**
 
 **4. Next steps and deadlines**
-     - Start writing team proposal and aim to finish by Saturday, Oct 25 latest to allow time for the team to review proposal together
-     - Team proposal deadline Sunday, Oct 26 11:59PM
+   - Start writing team proposal and aim to finish by Saturday, Oct 25 latest to allow time for the team to review proposal together
+   - Team proposal deadline Sunday, Oct 26 11:59PM
     
 **5. Questions to ask Hans:**
-     - What p-value are we willing to accept for sex-specific differences?
-     - How do we define the age groups (ages range from teens to 80+)?
+   - What p-value are we willing to accept for sex-specific differences?
+   - How do we define the age groups (ages range from teens to 80+)?
