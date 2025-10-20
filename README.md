@@ -196,7 +196,7 @@ That’s legitimate novelty because:
 The functional inference wasn’t done in the original paper.
 You’re testing different biological questions (e.g., “Does recovery correlate with restoration of butyrate biosynthesis pathways?”).
 
-## Meeting 2 Agenda
+## Meeting 4 Agenda
 
 Prepared by Jason Jonathan
 
@@ -225,3 +225,4 @@ Location: LSI 1416
 5. Questions to ask Hans:
   - What p-value are we willing to accept for sex-specific differences?
   - How do we define the age groups (ages range from teens to 80+)?
+
