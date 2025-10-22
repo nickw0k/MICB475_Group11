@@ -242,7 +242,7 @@ Participant Jason, Nicholas, Luna, Thomas, Hans
        - Most of the patients in the dataset are middle-aged, so if we are doing age for our analysis it's likely to be 40+
    - ***FINAL RESEARCH QUESTION (REFRAMED BY HANS): Are there sex-specific differences in microbial taxonomic and functional diversity in patients with severe or mild COVID?***
 
-**2. Project proposal (due Sunday, Oct 26 11:59PM)**:
+**2. Project proposal (due Sunday, Oct 26 11:59PM):**
    - Start thinking about aims for the proposal before the weekend
      - Aim 1 could be alpha and beta diversity analysis
      - Aim 2 could be core microbiome analysis, indicator species analysis, or DESeq analysis
@@ -261,3 +261,4 @@ Participant Jason, Nicholas, Luna, Thomas, Hans
    - Nick and Luna will do Introduction & Background?
    - Jason and Thomas will do the code and analysis (Dataset Overview)?
    - Will come up and do aims together as well as Gantt chart and Project Timeline
+
