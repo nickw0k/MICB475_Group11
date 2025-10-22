@@ -226,3 +226,37 @@ Location: LSI 1416
 **5. Questions to ask Hans:**
    - What p-value are we willing to accept for sex-specific differences?
    - How do we define the age groups (ages range from teens to 80+)?
+
+## Meeting 4
+
+Participant Jason, Nicholas, Luna, Thomas, Hans
+
+1. **Main research question**: Do age and sex-specific differences in the commensal microbiota influence the abundance and functional roles of microbial marker species that differentiate severe from mild COVID-19 patients?
+   - Advice from Hans:
+     - Too specific with "commensal"; microbiome sequencing data may show both commensal and pathogenic bacteria
+     - Reframe "sex-specific differences in the commensal microbiota"; this can mean sex-specific differences in the microbiota itself rather than the sex of the patients
+     - Remove "microbial marker species"; we don't know what are the microbial marker species yet, instead we will find out through our analysis
+     - Hans suggested to NOT do age for our analysis, however if we still wanted to we can define specific age groups we can work with (these need to be justified properly)
+       - If we decide to do age for our question, there will be more variables we need to analyze which would make it more difficult; Hans said with sex and mild/severe COVID variables there would be plenty enough for our analysis
+       - Most of the patients in the dataset are middle-aged, so if we are doing age for our analysis it's likely to be 40+
+   - ***FINAL RESEARCH QUESTION (REFRAMED BY HANS): Are there sex-specific differences in microbial taxonomic and functional diversity in patients with severe or mild COVID?***
+
+2. **Project proposal (due Sunday, Oct 26 11:59PM)**:
+   - Start thinking about aims for the proposal before the weekend
+     - Aim 1 could be alpha and beta diversity analysis
+     - Aim 2 could be core microbiome analysis, indicator species analysis, or DESeq analysis
+     - Aim 3 could be functional diversity analysis with Picrust2 or differentail abundance analysis
+     - Choose what analysis to do for each aim based on how the analysis we do can help us answer the research question, make sure each aim helps us answer the research question in one way or another
+     - For writing proposal, one column per aim and each row lists the specific step we would do to answer the corresponding aim (can refer to Proposal_Example1.pdf on MICB 475 Canvas page module)
+   - Start finding appropriate reference papers for the proposal
+     - Make sure that the reference papers chosen are relevant to the question and helps us set the background in the introduction as well as directs our analysis
+     - Hans suggested a minimum of 20 reference papers
+   - Use Proposal_Example1.pdf from Canvas page as a guideline for writing the proposal (can be found in Project 2 Assignment Documents module)
+
+3. **Schedule a meeting with Hans before the submission deadline**
+   - Nick said maybe Thursday or Friday?
+
+4. **Schedule a discord call between us to discuss proposal writing?**
+   - Nick and Luna will do Introduction & Background?
+   - Jason and Thomas will do the code and analysis (Dataset Overview)?
+   - Will come up and do aims together as well as Gantt chart and Project Timeline
