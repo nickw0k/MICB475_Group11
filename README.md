@@ -230,7 +230,11 @@ Location: LSI 1416
 
 ## Meeting 4
 
-Participant Jason, Nicholas, Luna, Thomas, Hans
+Date: Monday, Oct 20 (2:00 - 2:45 PM) in LSI 1416
+
+Notetaker: Jason Jonathan
+
+Participants: Jason, Nicholas, Luna, Thomas, Hans
 
 **1. Main research question:** Do age and sex-specific differences in the commensal microbiota influence the abundance and functional roles of microbial marker species that differentiate severe from mild COVID-19 patients?
    - Advice from Hans:
@@ -261,4 +265,5 @@ Participant Jason, Nicholas, Luna, Thomas, Hans
    - Nick and Luna will do Introduction & Background?
    - Jason and Thomas will do the code and analysis (Dataset Overview)?
    - Will come up and do aims together as well as Gantt chart and Project Timeline
+
 
