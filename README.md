@@ -304,9 +304,11 @@ Aim 3: Evaluate whether predicted functional pathways differ by sex and disease 
 **3. Discuss deadlines**
 
 - Since deadline got extended:
-Proposed goals:
+
+- Proposed goals:
 1. Meeting on Sunday evening (5pm ish) 
 2. Finished own parts by 6pm Saturday Nov 1st
+
 
 
 
