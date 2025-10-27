@@ -299,7 +299,8 @@ Will ask Hans for advice?
 Aim 3: Evaluate whether predicted functional pathways differ by sex and disease severity
 
 - Plan PICRUSt2 analysis (ASV table + taxonomy -> predict KEGG pathways)
-- Nick will handle pathway differential analysis and figures (PCoA + bar plots) 
+- Nick will handle pathway differential analysis and figures (PCoA + bar plots)
+
 
 3. Discuss deadlines
 
@@ -307,6 +308,7 @@ Aim 3: Evaluate whether predicted functional pathways differ by sex and disease 
 Proposed goals:
 1. Meeting on Sunday evening (5pm ish) 
 2. Finished own parts by 6pm Saturday Nov 1st
+
 
 
 
