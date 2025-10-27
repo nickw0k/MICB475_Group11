@@ -275,11 +275,11 @@ Date: Monday, Oct 27
 Time: 2:00 – 2:45 PM 
 Location: LSI 1416
 
-1. Quick recap 
+**1. Quick recap 
 - Everyone gives a quick update on progress 
 - Hans can review current progress on proposal doc
 
-2. Confirm 3 aims 
+**2. Confirm 3 aims 
 
 Aim 1 — Assess whether sex influences overall microbial community structure within mild and severe COVID-19 groups
 
@@ -301,13 +301,13 @@ Aim 3: Evaluate whether predicted functional pathways differ by sex and disease 
 - Plan PICRUSt2 analysis (ASV table + taxonomy -> predict KEGG pathways)
 - Nick will handle pathway differential analysis and figures (PCoA + bar plots)
 
-
-3. Discuss deadlines
+**3. Discuss deadlines
 
 - Since deadline got extended:
 Proposed goals:
 1. Meeting on Sunday evening (5pm ish) 
 2. Finished own parts by 6pm Saturday Nov 1st
+
 
 
 
