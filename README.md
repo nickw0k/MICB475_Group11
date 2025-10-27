@@ -8,6 +8,7 @@
   * [Meeting 3](#meeting-3)
   * [Meeting 4 Agenda](#meeting-4-Agenda)
   * [Meeting 4](#meeting-4)
+  * [Meeting 5](#meeting-5-Agenda)
 
 
     
@@ -265,5 +266,47 @@ Participants: Jason, Nicholas, Luna, Thomas, Hans
    - Nick and Luna will do Introduction & Background?
    - Jason and Thomas will do the code and analysis (Dataset Overview)?
    - Will come up and do aims together as well as Gantt chart and Project Timeline
+
+## Meeting 5 Agenda 
+
+Prepared by Nicholas Kwok
+
+Date: Monday, Oct 27
+Time: 2:00 – 2:45 PM 
+Location: LSI 1416
+
+1. Quick recap 
+- Everyone gives a quick update on progress 
+- Hans can review current progress on proposal doc
+
+2. Confirm 3 aims 
+
+Aim 1 — Assess whether sex influences overall microbial community structure within mild and severe COVID-19 groups
+
+- Discuss alpha & beta diversity metrics (Shannon, Faith’s PD, weighted/unweighted UniFrac PCoA).
+- Confirm statistical comparisons (PERMANOVA, pairwise tests).
+- Update on QIIME2 diversity core metrics and R results by Thomas/Jason
+
+Aim 2 — Identify sex-specific microbial taxa associated with disease severity
+
+- Outline workflow for indicator species analysis (ISA): input = phyloseq object from mpt_final.
+- Confirm thresholds (min abundance/prevalence).
+- Decide whether to add DESeq2 for validation.
+- Assign coding responsibilities for ISA and visualization (Venn/heatmaps). (Luna?)
+
+Will ask Hans for advice?
+
+Aim 3: Evaluate whether predicted functional pathways differ by sex and disease severity
+
+- Plan PICRUSt2 analysis (ASV table + taxonomy -> predict KEGG pathways)
+- Nick will handle pathway differential analysis and figures (PCoA + bar plots) 
+
+3. Discuss deadlines
+
+- Since deadline got extended:
+Proposed goals:
+1. Meeting on Sunday evening (5pm ish) 
+2. Finished own parts by 6pm Saturday Nov 1st
+
 
 
