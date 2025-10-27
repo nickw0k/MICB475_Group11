@@ -1,6 +1,8 @@
 # MICB475: Data Science Research in Microbiology 2025W Group 11
 
+
 ## Table of Contents 
+  * [Research Question and Aims](#Research-Question-and-Aims)
   * [Meeting 1](#meeting-1)
   * [Meeting 2 Agenda](#meeting-2-Agenda)
   * [Meeting 2](#meeting-2)
@@ -11,6 +13,16 @@
   * [Meeting 5 Agenda](#meeting-5-Agenda)
 
 
+## Research Question and Aims
+Research Question:
+Are there sex-specific differences in microbial taxonomic and functional diversity patients with severe and mild COVID-19
+
+Aim 1
+Assess whether sex influences overall microbial community structure within mild and severe covid-19 groups
+
+Identify sex-specific microbial taxa associated with disease severity
+
+Evaluate whether predicted functional Pathways differ by sex and disease severity
     
 ## Meeting 1 
 Date: Monday, Sept. 29 (2:00-2:45)
@@ -308,6 +320,7 @@ Aim 3: Evaluate whether predicted functional pathways differ by sex and disease 
 - Proposed goals:
 1. Meeting on Sunday evening (5pm ish) 
 2. Finished own parts by 6pm Saturday Nov 1st
+
 
 
 
