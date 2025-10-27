@@ -321,6 +321,44 @@ Aim 3: Evaluate whether predicted functional pathways differ by sex and disease 
 1. Meeting on Sunday evening (5pm ish) 
 2. Finished own parts by 6pm Saturday Nov 1st
 
+## Meeting 5
+
+Date: Monday, Oct 20 (2:00 - 2:45 PM) in LSI 1416
+
+Notetaker: Nicholas Kwok
+
+Participants: Jason, Nicholas, Luna, Thomas, Hans
+
+**1. Admin stuff** 
+- Next week is the first time Hans can mark our proposal
+- He won't mark it, but will chat about it with us on Nov 3th. We will get feedback, can edit during that week
+- Nov 10th is reading break? 
+- We can do a zoom meeting on 10th Nov 
+
+**2. Aims**
+**- Aim 2: **
+- Luna wrote about the hypothesis/ research question (Thanks Luna!)
+- And ISA/ DeSeq2, make a relative abundance plot 
+
+**- Aim 3:** 
+- Edit aim wording: leave 'predicted' out
+(i.e. Aim 3: Evaluate whether functional pathways differ by sex and disease severity)
+- Nick asked if we need all of the data processed for the proposal, Hans said no 
+- Dataset description only
+- don't need alpha diversity yet 
+
+**- Aim 1:**
+- Jason proposed that we need to train our own classifier 
+- classifier (we want to make sure we're zoning into what we need to sequence)
+- asked hans something about forward/ reverse sequences? 
+- Jason/ Tjomas is splitting alpha/beta diversity (check Instagram chat for the requirements) 
+- Thomas/ will finish Gantt Chart
+
+**Other**
+- No need to include supplementary info (code) for proposal
+- Need to save all code on GitHub 
+- Thomas has been talking about uploading code on to Github
+
 
 
 
