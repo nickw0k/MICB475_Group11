@@ -336,6 +336,7 @@ Participants: Jason, Nicholas, Luna, Thomas, Hans
 - We can do a zoom meeting on 10th Nov 
 
 **2. Aims**
+
 **-Aim 2:**
 - Luna wrote about the hypothesis/ research question (Thanks Luna!)
 - And ISA/ DeSeq2, make a relative abundance plot 
@@ -358,6 +359,7 @@ Participants: Jason, Nicholas, Luna, Thomas, Hans
 - No need to include supplementary info (code) for proposal
 - Need to save all code on GitHub 
 - Thomas has been talking about uploading code on to Github
+
 
 
 
