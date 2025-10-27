@@ -12,7 +12,7 @@
   * [Meeting 4](#meeting-4)
   * [Meeting 5 Agenda](#meeting-5-Agenda)
   * [Meeting 5](#meeting-5)
-  * [Meeting 6](#meeting-6)
+  * [Meeting 6](#meeting-6-Agenda)
 
 
 ## Research Question and Aims
@@ -371,6 +371,7 @@ Prepared by Luna Kurokawa
 - Decide when we are having the meeting over the reading break
 - Make a rough schedule on when we want to complete each portion of the project by. 
   
+
 
 
 
