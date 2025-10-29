@@ -6,19 +6,19 @@ library('vegan')
 
 #Loading Files
 #meta file
-metaFP <- "../../Mexico Dataset QIIME2 files/covid_mex_metadata.tsv"
+metaFP <- "Mexico Dataset QIIME2 files/covid_mex_metadata.tsv"
 meta <- read.delim(file=metaFP,sep = "\t")
 
 #otu file
-otuFP <- "../../Mexico Dataset QIIME2 files/mexico-feature-table.txt"
+otuFP <- "Mexico Dataset QIIME2 files/mexico-feature-table.txt"
 otu <- read.delim(file=otuFP,sep = "\t", skip = 1)
 
 #taxonomy table
-taxFP <- "../../Mexico Dataset QIIME2 files/mexico-taxonomy.tsv"
+taxFP <- "Mexico Dataset QIIME2 files/mexico-taxonomy.tsv"
 tax <- read.delim(file=taxFP,sep = "\t")
 
 #phylogenetic tree
-phyFP <- "../../Mexico Dataset QIIME2 files/mexico-tree.nwk"
+phyFP <- "Mexico Dataset QIIME2 files/mexico-tree.nwk"
 phy <- read.tree(phyFP)
 
 #phyloseq data prep
@@ -54,6 +54,6 @@ rarecurve(t(as.data.frame(otu_table(cm_final))),cex=0.1)
 rare_cm <- rarefy_even_depth(cm_final,rngseed = 11,sample.size = 3000)
 
 #-------
-save(cm_final,file="cm_final.RData")
-save(cm_rare,file="cm_rare.RData")
+save(cm_final,file="Rarefaction Code/cm_final.RData")
+save(rare_cm,file="Rarefaction Code/cm_rare.RData")
 #-----------------------------------------------------
