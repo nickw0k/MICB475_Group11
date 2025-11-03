@@ -13,6 +13,7 @@
   * [Meeting 5 Agenda](#meeting-5-Agenda)
   * [Meeting 5](#meeting-5)
   * [Meeting 6 Agenda](#meeting-6-Agenda)
+  * [Meeting 6](#meeting-6)
 
 
 ## Research Question and Aims
@@ -384,6 +385,7 @@ Participants: Nicholas, Luna, Thomas, Hans
 - No default ggplot figure (no grey with white grid lines background)  "theme_"something"" to change
 - adjust access text and access title (do not use default as it is too small) --> at least size 20
   
+
 
 
 
