@@ -377,14 +377,18 @@ Prepared by Luna Kurokawa
 ## Meeting 6 
 
 Date: Nov 3, 2025
+
 Notetaker: Luna Kurokawa
+
 Participants: Nicholas, Luna, Thomas, Hans
 
 - Hans did not have time to take a look at our proposal so no feedback today :(
   
 - No default ggplot figure (no grey with white grid lines background)  "theme_"something"" to change
 - adjust access text and access title (do not use default as it is too small) --> at least size 20
-  
+
+- Next week's meeting is moved to Friday, Nov. 14 at 11:30-12:15 online. Hans will sent out a zoom link for this meeting. 
+
 
 
 
