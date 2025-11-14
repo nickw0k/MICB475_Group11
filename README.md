@@ -14,6 +14,8 @@
   * [Meeting 5](#meeting-5)
   * [Meeting 6 Agenda](#meeting-6-Agenda)
   * [Meeting 6](#meeting-6)
+  * [Meeting 7 Agenda](#meeting-7-Agenda)
+  * [Meeting 7](#meeting-7)
 
 
 ## Research Question and Aims
@@ -387,7 +389,26 @@ Participants: Nicholas, Luna, Thomas, Hans
 - No default ggplot figure (no grey with white grid lines background)  "theme_"something"" to change
 - adjust access text and access title (do not use default as it is too small) --> at least size 20
 
-- Next week's meeting is moved to Friday, Nov. 14 at 11:30-12:15 online. Hans will sent out a zoom link for this meeting. 
+- Next week's meeting is moved to Friday, Nov. 14 at 11:30-12:15 online. Hans will sent out a zoom link for this meeting.
+
+## Meeting 7 Agenda
+
+Date: Nov 14, 2025
+Prepared by: Thomas Hesselbo
+
+- Proposal
+   - Go over proposal feedback by Hans
+   - Go over proposal feedback by instructor
+   - Make plans for proposal resubmission
+ 
+- Overall project
+   - Progress update
+   - Schedule adjustment (based on progress update)
+ 
+
+##Meeting 7
+
+
 
 
 
