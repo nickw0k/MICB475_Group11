@@ -406,8 +406,13 @@ Prepared by: Thomas Hesselbo
    - Schedule adjustment (based on progress update)
  
 
-##Meeting 7
+## Meeting 7
 
+Notetaker: 
+
+- Need to include asymptomatic samples as negative control (mild negative could be infected with other viruses and showing simialr symptoms so it is not a control)
+- Frame the introduction in a "funnel" (start with broad information (general statements/topics in first paragraph) and get more specific in the later paragraphs).
+  
 
 
 
