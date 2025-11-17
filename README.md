@@ -412,7 +412,9 @@ Notetaker:
 
 - Need to include asymptomatic samples as negative control (mild negative could be infected with other viruses and showing simialr symptoms so it is not a control)
 - Frame the introduction in a "funnel" (start with broad information (general statements/topics in first paragraph) and get more specific in the later paragraphs).
+- Fatal only has 18 cases, Thomas said need to split into 2 (9 per gender), Hans said it's ok
   
+
 
 
 
