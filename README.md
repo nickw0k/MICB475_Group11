@@ -329,7 +329,7 @@ Aim 3: Evaluate whether predicted functional pathways differ by sex and disease 
 
 ## Meeting 5
 
-Date: Monday, Oct 20 (2:00 - 2:45 PM) in LSI 1416
+Date: Monday, Oct 27 (2:00 - 2:45 PM) in LSI 1416
 
 Notetaker: Nicholas Kwok
 
@@ -439,3 +439,4 @@ Date: Monday, Nov 17 (2:00 – 2:45 PM) in LSI 1416
 **4. IMPORTANT UPCOMING DEADLINES**
    - Proposal revision due today (Monday, Nov 17 at 11:59 PM)
    - Final presentation due on Sunday, Nov 30 at 11:59 PM (in less than two weeks)
+
