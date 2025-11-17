@@ -419,9 +419,7 @@ Notetaker:
 
 Prepared by Jason Jonathan
 
-Date: Monday, Oct 20
-Time: 2:00 – 2:45 PM 
-Location: LSI 1416
+Date: Monday, Nov 17 (2:00 – 2:45 PM) in LSI 1416
 
 **1. Discuss Team Proposal revisions with Hans**
    - Ask Hans any questions about the parts of the feedback that we are unclear on
