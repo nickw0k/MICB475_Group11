@@ -16,6 +16,7 @@
   * [Meeting 6](#meeting-6)
   * [Meeting 7 Agenda](#meeting-7-Agenda)
   * [Meeting 7](#meeting-7)
+  * [Meeting 8 Agenda](#meeting-8-Agenda)
 
 
 ## Research Question and Aims
@@ -414,18 +415,29 @@ Notetaker:
 - Frame the introduction in a "funnel" (start with broad information (general statements/topics in first paragraph) and get more specific in the later paragraphs).
 - Fatal only has 18 cases, Thomas said need to split into 2 (9 per gender), Hans said it's ok
   
+## Meeting 8 Agenda
 
+Prepared by Jason Jonathan
 
+Date: Monday, Oct 20
+Time: 2:00 – 2:45 PM 
+Location: LSI 1416
 
+**1. Discuss Team Proposal revisions with Hans**
+   - Ask Hans any questions about the parts of the feedback that we are unclear on
+   - Ask Hans to read through or double-check the revisions that we have made to make sure they are addressing the points raised in the feedback we received
+     - Main revision: Introduction and Research Question + Hypothesis parts (since we lost most marks here)
+     - Double-check if references are properly formatted (citation problem just the hyperlinks of DOI and references 24-26?)
+     - How do we cite the NCBI website itself in ASM format?
+   - Does Hans have his own feedback to give?
 
+**2. Progress update on overall project**
+   - Discuss any progress updates (might not have any since we need to change the number of severity groups we are analyzing)
 
+**3. Make any adjustments to project schedule and timeline based on project progress**
+   - Discuss whether to make adjustments to our project timeline
+     - If we have to dedicate more time to the project to catch up with our current timeline
 
-
-
-
-
-
-
-
-
-
+**4. IMPORTANT UPCOMING DEADLINES**
+   - Proposal revision due today (Monday, Nov 17 at 11:59 PM)
+   - Final presentation due on Sunday, Nov 30 at 11:59 PM (in less than two weeks)
