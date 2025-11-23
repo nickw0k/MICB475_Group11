@@ -125,6 +125,12 @@ tax_df <- as.data.frame(tax_table(ps)) %>%
 top_sps_named <- significant_indicators %>%
   left_join(tax_df %>% select(OTU, Label), by = "OTU")
 
+## For top 20 Significant Taxa 
+#top_sps_named <- significant_indicators %>%
+ # left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
+ # arrange(desc(stat)) %>%  
+ # slice_head(n = 20)     
+
 
 # --- 8. Create the Final Plot ---
 
