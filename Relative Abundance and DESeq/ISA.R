@@ -1,3 +1,4 @@
+
 # --- 1. Load Libraries ---
 
 library(phyloseq)
@@ -52,7 +53,6 @@ ps <- phyloseq(OTU,META,TAX,phy)
 meta <- data.frame(sample_data(ps), stringsAsFactors = FALSE)
 meta$Severity <- NA_character_
 meta$Severity[grepl("asymptomatic", tolower(meta$Group))] <- "Control"
-meta$Severity[grepl("ambulatory negative", tolower(meta$Group))] <- "Mild-"
 meta$Severity[grepl("ambulatory positive",   tolower(meta$Group))] <- "Mild+"
 meta$Severity[grepl("hospitalized positive", tolower(meta$Group))] <- "Severe"
 meta$Severity[grepl("Deceased hospitalized",   tolower(meta$Group))] <- "Fatal"
@@ -104,7 +104,7 @@ print(head(significant_indicators))
 
 tax_df <- as.data.frame(tax_table(ps)) %>%
   rownames_to_column(var = "OTU") %>%
-
+  
   mutate(
     Species = na_if(Species, "s__"), 
     Genus = na_if(Genus, "g__"),   
@@ -114,7 +114,7 @@ tax_df <- as.data.frame(tax_table(ps)) %>%
     Phylum = na_if(Phylum, "p__"), 
     Domain = na_if(Domain, "d__")  
   ) %>%
- 
+  
   
   mutate(
     Label = coalesce(Species, Genus, Family, Order, Class, Phylum, Domain),
@@ -123,13 +123,9 @@ tax_df <- as.data.frame(tax_table(ps)) %>%
 
 
 top_sps_named <- significant_indicators %>%
-  left_join(tax_df %>% select(OTU, Label), by = "OTU")
+  left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
 
-## For top 20 Significant Taxa 
-#top_sps_named <- significant_indicators %>%
- # left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
- # arrange(desc(stat)) %>%  
- # slice_head(n = 20)     
+  filter(!grepl("NA", cluster))
 
 
 # --- 8. Create the Final Plot ---
@@ -141,7 +137,7 @@ isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill =
     x = "Taxonomy",
     y = "Indicator Value (stat)",
     fill = "Sex-Severity Group",
-    title = "Significant Indicator Species by Group"
+    title = "Significant Indicator Species" # Updated title
   ) +
   theme_minimal() +
   theme(
@@ -151,5 +147,16 @@ isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill =
 
 
 print(isa_plot)
-ggsave("indicator_species_plot_all.png", plot = isa_plot, width = 10, height = 15, dpi = 300)
+ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, dpi = 300) # Updated filename
 
+
+
+
+
+## For top 20 Significant Taxa 
+
+#top_sps_named <- significant_indicators %>%
+# left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
+
+# arrange(desc(stat)) %>%  
+# slice_head(n = 20)     
