@@ -444,9 +444,28 @@ Date: Monday, Nov 17 (2:00 – 2:45 PM) in LSI 1416
    - Final presentation due on Sunday, Nov 30 at 11:59 PM (in less than two weeks)
 
 ## Meeting 8
-  - Many questions and concerns were answered with regard to the proposal revision (This was the majority of the meeting)
-  - Deadlines will procede as usual for the completion of the majority of the project
-  - Meeting 9 will be held as usual, but meeting 10 will be moved 3 days in advance (friday) inorder to go over the presentation before the final submission of it on the following sunday
+
+Date: Monday, Nov 17 (2:00 - 2:45 PM) in LSI 1416
+
+Notetaker: Jason Jonathan
+
+Participants: Jason, Nicholas, Luna, Thomas, Hans, Avril
+
+**1. Team proposal revision (due Monday, Nov 17 at 11:59 PM)**
+   - Research Question + Hypothesis/Predictions:
+     - Write up a more specific and detailed prediction for our analysis
+   - Experimental Aims and Rationale
+     - Change tone of the 2nd paragraph of Aim 1 to address the feedback
+     - Include definition/description of "severity" for our analysis in Aim 1
+     - Remove "Mild Negative" group since we are looking only at patients that are infected with COVID-19 (use "Asymptomatic" group as our control)
+   - References
+     - Remove hyperlinks for all DOI
+
+**2. Final Presentation (due Sunday, Nov 30 at 11:59 PM)**
+   - Aim to get as much data as possible done by next week's meeting on Monday, Nov 24
+   - Have figures and graphs ready by next week's meeting on Monday, Nov 24
+     - Show and discuss any data, figures, and graphs with Hans and ask for feedback
+   - Will fix slides, presentation, and story during the meeting on the Monday of presentation week (Monday, Dec 1)
 
 ## Meeting 9 Agenda
 
@@ -466,3 +485,4 @@ Notetaker: Thomas Hesselbo
 
 
     
+
