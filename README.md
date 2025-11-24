@@ -17,6 +17,9 @@
   * [Meeting 7 Agenda](#meeting-7-Agenda)
   * [Meeting 7](#meeting-7)
   * [Meeting 8 Agenda](#meeting-8-Agenda)
+  * [Meeting 8](#meeting-8)
+  * [Meeting 9 Agenda](#meeting-9-Agenda)
+  * [Meeting 9](#meeting-9)
 
 
 ## Research Question and Aims
@@ -440,3 +443,26 @@ Date: Monday, Nov 17 (2:00 – 2:45 PM) in LSI 1416
    - Proposal revision due today (Monday, Nov 17 at 11:59 PM)
    - Final presentation due on Sunday, Nov 30 at 11:59 PM (in less than two weeks)
 
+## Meeting 8
+  - Many questions and concerns were answered with regard to the proposal revision (This was the majority of the meeting)
+  - Deadlines will procede as usual for the completion of the majority of the project
+  - Meeting 9 will be held as usual, but meeting 10 will be moved 3 days in advance (friday) inorder to go over the presentation before the final submission of it on the following sunday
+
+## Meeting 9 Agenda
+
+Prepared by Thomas Hesselbo
+Date: Monday, Nov 24 (2:00 - 2:45 PM) 
+
+**1. Questions regarding the presentation so far**
+  - Balacing text loads
+  - How to address introduction and hypothesis
+  - Overall formating suggestions and feedback
+
+**2. Questions regarding Figures**
+  - Ask questions on an individual basis depending on how work has been progressing
+
+## Meeting 9
+Notetaker: Thomas Hesselbo
+
+
+    
