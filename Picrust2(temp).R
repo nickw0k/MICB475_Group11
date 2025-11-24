@@ -60,11 +60,6 @@ metadata <- metadata |>
     severity_sex = paste0(severity, "_", substr(sex, 1, 1))
   )
 
-# keep only samples that are in the abundance table and preserve order
-abun_samples <- colnames(abundance_data_filtered)[-1]
-metadata <- metadata[metadata$`sample-id` %in% abun_samples, ]
-metadata <- metadata[match(abun_samples, metadata$`sample-id`), ]
-rownames(metadata) <- metadata$`sample-id`
 
 # lock factor order (also forces Deceased F/M to be kept if present)
 metadata$severity_sex <- factor(
@@ -72,7 +67,7 @@ metadata$severity_sex <- factor(
   levels = c("Asymp_F","Asymp_M",
              "Mild+_F","Mild+_M",
              "Severe+_F","Severe+_M",
-             "D_F","D_M")
+             "Deceased_F","Deceased_M")
 )
 
 table(metadata$severity_sex)
@@ -148,10 +143,6 @@ abundance_desc <- abundance_desc[, 1:(1 + n_samples)]
 
 # drop any rows that don't have a pathway description
 abundance_desc <- abundance_desc |> dplyr::filter(!is.na(feature))
-
-# pathways × samples matrix
-abun_mat <- abundance_desc %>%
-  tibble::column_to_rownames("feature")
 
 # pathways × samples matrix
 abun_mat <- abundance_desc %>%
@@ -313,7 +304,7 @@ DEseq2_function <- function(abundance_table, metadata, col_of_interest) {
     )
     
     # size factors with poscounts (works better with many zeros)
-    DESeq2_object <- BiocGenerics::estimateSizeFactors(DESeq2_object, type = "poscounts")
+    DESeq2_object <- DESeq2::estimateSizeFactors(DESeq2_object, type = "poscounts")
     DESeq2_object <- DESeq2::DESeq(DESeq2_object)
     
     #  g2 vs g1 (this matches typical "case_vs_control" logic)
