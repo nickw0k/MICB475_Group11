@@ -1,7 +1,3 @@
-##### Install packages #####
-# Start by installing all necessary packages when asked if you want to install
-# from source, please just type Yes in the terminal below
-
 ### Paths (relative to your Git Project root)
 abundance_file <- "Mexico Dataset QIIME2 files/path_abun_unstrat.tsv.gz"
 metadata_file  <- "Mexico Dataset QIIME2 files/covid_mex_metadata.tsv"
@@ -267,32 +263,156 @@ ggsave(
   width  = 8, height = 6, dpi = 300
 )
 
-# If DESeq2_function.R lives in Git Project:
-source("DESeq2_function.R")
+### 17. DESeq2: all pairwise contrasts on severity_sex ###
 
-res <- DEseq2_function(abundance_data_filtered, metadata, "severity_sex")
-res$feature <- rownames(res)
+# Function: run DESeq2 for all pairwise combinations of a metadata factor
+DEseq2_function <- function(abundance_table, metadata, col_of_interest) {
+  
+  # 17.1 Copy metadata and rename the grouping column to a stable name ----
+  DESeq2_metadata <- as.data.frame(metadata)
+  
+  DESeq2_colnames <- colnames(DESeq2_metadata)
+  DESeq2_colnames[DESeq2_colnames == col_of_interest] <- "Group_group_nonsense"
+  colnames(DESeq2_metadata) <- DESeq2_colnames
+  DESeq2_metadata[,"Group_group_nonsense"] <- as.factor(DESeq2_metadata[,"Group_group_nonsense"])
+  
+  # 17.2 Build count matrix with pathways as rows, samples as columns ----
+  DESeq2_abundance_mat <- abundance_table %>%
+    tibble::column_to_rownames("pathway")
+  
+  # Ensure column order of counts == rownames(metadata) (sample IDs)
+  DESeq2_abundance_mat <- DESeq2_abundance_mat[, rownames(DESeq2_metadata), drop = FALSE]
+  
+  # 17.3 Generate all pairwise combinations of groups ----
+  groups <- unique(DESeq2_metadata[,"Group_group_nonsense"])
+  DESeq2_combinations <- utils::combn(groups, 2)  # 2 x N matrix
+  
+  DESeq2_results_list <- vector("list", ncol(DESeq2_combinations))
+  
+  message("Performing pairwise comparisons with DESeq2...")
+  
+  # 17.4 Loop over each pair of groups and run DESeq2 ----
+  for (i in seq_len(ncol(DESeq2_combinations))) {
+    pair <- DESeq2_combinations[, i]
+    g1 <- pair[1]
+    g2 <- pair[2]
+    
+    message("  Contrast: ", g2, " vs ", g1)
+    
+    # subset samples in these two groups
+    sub_idx <- DESeq2_metadata$Group_group_nonsense %in% c(g1, g2)
+    DESeq2_metadata_sub   <- DESeq2_metadata[sub_idx, , drop = FALSE]
+    DESeq2_abundance_sub  <- DESeq2_abundance_mat[, sub_idx, drop = FALSE]
+    DESeq2_abundance_sub  <- round(DESeq2_abundance_sub)
+    
+    # DESeq2 object
+    DESeq2_object <- DESeq2::DESeqDataSetFromMatrix(
+      countData = DESeq2_abundance_sub,
+      colData   = DESeq2_metadata_sub,
+      design    = ~ Group_group_nonsense
+    )
+    
+    # size factors with poscounts (works better with many zeros)
+    DESeq2_object <- BiocGenerics::estimateSizeFactors(DESeq2_object, type = "poscounts")
+    DESeq2_object <- DESeq2::DESeq(DESeq2_object)
+    
+    #  g2 vs g1 (this matches typical "case_vs_control" logic)
+    res <- as.data.frame(
+      DESeq2::results(
+        DESeq2_object,
+        contrast = c("Group_group_nonsense", g2, g1)
+      )
+    )
+    
+    res$feature  <- rownames(res)
+    res$contrast <- paste0(g2, "_vs_", g1)
+    
+    DESeq2_results_list[[i]] <- res
+  }
+  
+  # 17.5 Combine all contrasts into one data frame ----
+  all_results <- dplyr::bind_rows(DESeq2_results_list)
+  return(all_results)
+}
 
-res_desc <- dplyr::inner_join(
-  res,
-  metacyc_daa_annotated_results_df,
-  by = "feature"
+### 17a. Run DESeq2 on your PICRUSt2 pathway table (severity_sex) ----
+
+deseq_res <- DEseq2_function(
+  abundance_table = abundance_data_filtered,  # has "pathway" + samples
+  metadata        = metadata,
+  col_of_interest = "severity_sex"
 )
 
-# Keep only needed columns
-res_desc <- res_desc[, -c(8:13)]
+# Check what contrasts you have:
+unique(deseq_res$contrast)
 
-# Filter significant and plot
-sig_res <- res_desc %>% dplyr::filter(pvalue < 0.05)
-sig_res <- sig_res[order(sig_res$log2FoldChange), ]
+### 17b. Annotate with MetaCyc pathway descriptions ----
 
-ggplot(sig_res, aes(
-  y    = reorder(description, sort(as.numeric(log2FoldChange))),
-  x    = log2FoldChange,
-  fill = pvalue
-)) +
-  geom_bar(stat = "identity") +
-  theme_bw() +
-  labs(x = "Log2FoldChange", y = "Pathways")
+deseq_res_annot <- deseq_res %>%
+  dplyr::inner_join(metacyc_daa_annotated_results_df, by = "feature") %>%
+  dplyr::select(
+    feature,
+    description,
+    contrast,
+    baseMean,
+    log2FoldChange,
+    lfcSE,
+    stat,
+    pvalue,
+    padj
+  )
+
+### 17c. Filter to FDR-significant pathways (padj < 0.05) ----
+
+sig_res <- deseq_res_annot %>%
+  dplyr::filter(!is.na(padj), padj < 0.05)
+
+# See how many sig pathways per contrast
+table(sig_res$contrast)
+
+### 17d. Make and save a log2FC barplot for *every* contrast with ≥1 sig pathway ----
+
+all_contrasts <- unique(sig_res$contrast)
+
+for (cname in all_contrasts) {
+  plot_data <- sig_res %>%
+    dplyr::filter(contrast == cname) %>%
+    dplyr::arrange(log2FoldChange)
+  
+  if (nrow(plot_data) == 0) next
+  
+  p <- ggplot(plot_data, aes(
+    y    = reorder(description, log2FoldChange),
+    x    = log2FoldChange,
+    fill = padj
+  )) +
+    geom_col() +
+    theme_bw() +
+    labs(
+      title = paste("Differential pathways:", cname),
+      x     = "log2 fold change",
+      y     = "MetaCyc pathway"
+    ) +
+    scale_fill_gradient(
+      name  = "FDR (padj)",
+      low   = "red",
+      high  = "grey80",
+      trans = "reverse"  # darker = more significant
+    )
+  
+  print(p)  # shows in RStudio
+  
+  # Safe filename (remove weird symbols)
+  safe_name <- gsub("[^A-Za-z0-9_]+", "_", cname)
+  
+  ggsave(
+    filename = paste0("Fig_DESeq2_pathways_", safe_name, ".png"),
+    plot     = p,
+    width    = 8,
+    height   = 6,
+    dpi      = 300
+  )
+}
+
 
 
