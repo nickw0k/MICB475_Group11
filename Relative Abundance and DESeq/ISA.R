@@ -1,6 +1,3 @@
-
-# --- 1. Load Libraries ---
-
 library(phyloseq)
 library(ggplot2)
 library(tidyverse)
@@ -53,7 +50,7 @@ ps <- phyloseq(OTU,META,TAX,phy)
 meta <- data.frame(sample_data(ps), stringsAsFactors = FALSE)
 meta$Severity <- NA_character_
 meta$Severity[grepl("asymptomatic", tolower(meta$Group))] <- "Control"
-meta$Severity[grepl("ambulatory positive",   tolower(meta$Group))] <- "Mild+"
+meta$Severity[grepl("ambulatory positive",   tolower(meta$Group))] <- "Mild"
 meta$Severity[grepl("hospitalized positive", tolower(meta$Group))] <- "Severe"
 meta$Severity[grepl("Deceased hospitalized",   tolower(meta$Group))] <- "Fatal"
 
@@ -129,25 +126,27 @@ top_sps_named <- significant_indicators %>%
 
 
 # --- 8. Create the Final Plot ---
-
 isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill = cluster)) +
   geom_col() +
   coord_flip() + 
+
+  scale_y_continuous(limits = c(0, 1.0)) + # Map to the original y-axis (stat)
   labs(
-    x = "Taxonomy",
+    x = "Taxonomy (Taxa Sorted by Indicator Value)",
     y = "Indicator Value (stat)",
     fill = "Sex-Severity Group",
-    title = "Significant Indicator Species" # Updated title
+    title = "Significant Indicator Species (IndVal Max = 1.0)"
   ) +
   theme_minimal() +
   theme(
     legend.position = "bottom", 
-    plot.title = element_text(hjust = 0.5) 
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    plot.subtitle = element_text(hjust = 0.5),
+    panel.grid.minor.y = element_blank() # Clean up the vertical grid lines
   )
 
-
 print(isa_plot)
-ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, dpi = 300) # Updated filename
+ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, dpi = 300)
 
 
 
@@ -160,3 +159,38 @@ ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, d
 
 # arrange(desc(stat)) %>%  
 # slice_head(n = 20)     
+
+
+
+
+
+
+
+
+
+# Table of Taxon + Indicator Value
+
+#final_isa_table <- sig_table %>%
+ # left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
+  
+ # filter(!grepl("NA", cluster)) %>%
+
+ # select(Taxon_Label = Label, 
+         Indicated_Group = cluster, 
+         Indicator_Value_Stat = stat, 
+         P_Value = p.value) %>%
+  
+ # filter(Taxon_Label != "Unclassified") %>%
+ 
+ # arrange(desc(Indicator_Value_Stat)) %>%
+ 
+ # mutate(
+  #  Indicator_Value_Stat = round(Indicator_Value_Stat, 3),
+  #  P_Value = format.pval(P_Value, digits = 4)
+  )
+
+#cat("\n\n#################################################################\n")
+#cat("--- Significant Indicator Species Table (p-value <= 0.05) ---\n")
+#cat("#################################################################\n\n")
+
+#print(as.data.frame(final_isa_table), max.print = 99999) 
