@@ -483,6 +483,13 @@ Date: Monday, Nov 24 (2:00 - 2:45 PM)
 ## Meeting 9
 Notetaker: Thomas Hesselbo
 
+**Managing Slides**
+- Make titles simple
+- Rework AIMS slide
+- Rework introduction slides
 
+**Scheduling**
+- Firday 4:00 -> 4:45
     
+
 
