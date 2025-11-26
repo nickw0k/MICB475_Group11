@@ -128,7 +128,7 @@ top_sps_named <- significant_indicators %>%
   filter(!grepl("NA", cluster))
 
 
-# --- 8. Create the Final Plot ---
+# --- 8. Plot ---
 isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill = cluster)) +
   geom_col() +
   coord_flip() + 
@@ -156,7 +156,7 @@ ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, d
 
 
 
-## For top 20 Significant Taxa 
+# --- Optional - For top 20 Significant Taxa ---
 
 #top_sps_named <- significant_indicators %>%
 # left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
@@ -166,37 +166,30 @@ ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, d
 
 
 
+# --- Optional - Table of Taxon + Indicator Value ---
 
-
-
-
-
-
-# Table of Taxon + Indicator Value
-
-final_isa_table <- sig_table %>%
-  left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
+#final_isa_table <- sig_table %>%
+ # left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
   
-  filter(!grepl("NA", cluster)) %>%
+  #filter(!grepl("NA", cluster)) %>%
 
-  select(Taxon_Label = Label, 
-         Indicated_Group = cluster, 
-         Indicator_Value_Stat = stat, 
-         P_Value = p.value) %>%
+ # select(Taxon_Label = Label, 
+      #   Indicated_Group = cluster, 
+      #   Indicator_Value_Stat = stat, 
+      #   P_Value = p.value) %>%
   
-  filter(Taxon_Label != "Unclassified") %>%
+ # filter(Taxon_Label != "Unclassified") %>%
  
-  arrange(desc(Indicator_Value_Stat)) %>%
+ # arrange(desc(Indicator_Value_Stat)) %>%
  
-  mutate(
-    Indicator_Value_Stat = round(Indicator_Value_Stat, 3),
-    P_Value = format.pval(P_Value, digits = 4)
-  )
+#  mutate(
+  #  Indicator_Value_Stat = round(Indicator_Value_Stat, 3),
+  #  P_Value = format.pval(P_Value, digits = 4)
+#  )
 
-cat("\n\n#################################################################\n")
-cat("--- Significant Indicator Species Table (p-value <= 0.05) ---\n")
-cat("#################################################################\n\n")
+#cat("\n\n#################################################################\n")
+#cat("--- Significant Indicator Species Table (p-value <= 0.05) ---\n")
+#cat("#################################################################\n\n")
 
-# Print all rows of the resulting data frame
-print(as.data.frame(final_isa_table), max.print = 999) 
+#print(as.data.frame(final_isa_table), max.print = 999) 
 
