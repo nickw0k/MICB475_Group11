@@ -1,0 +1,283 @@
+sample-id	AGE	Center_Name	isolate	Group	sex	tissue
+SRR22118524	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP80	Saliva microbiota hospitalized positive 80	male	Saliva
+SRR22118525	83	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP79	Saliva microbiota hospitalized positive 79	male	Saliva
+SRR22118526	57	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP78	Saliva microbiota hospitalized positive 78	male	Saliva
+SRR22118527	68	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP76	Saliva microbiota hospitalized positive 76	male	Saliva
+SRR22118528	32	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP75	Saliva microbiota hospitalized positive 75	male	Saliva
+SRR22118529	66	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP74	Saliva microbiota hospitalized positive 74	female	Saliva
+SRR22118530	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC32	Saliva microbiota asymptomatic AC32	male	Saliva
+SRR22118531	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP73	Saliva microbiota hospitalized positive 73	male	Saliva
+SRR22118532	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP71	Saliva microbiota hospitalized positive 71	NA	Saliva
+SRR22118533	59	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP69	Saliva microbiota hospitalized positive 69	female	Saliva
+SRR22118534	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP68	Saliva microbiota hospitalized positive 68	female	Saliva
+SRR22118535	80	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP67	Saliva microbiota hospitalized positive 67	NA	Saliva
+SRR22118536	70	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP65	Saliva microbiota hospitalized positive 65	male	Saliva
+SRR22118537	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP64	Saliva microbiota hospitalized positive 64	male	Saliva
+SRR22118538	41	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP61	Saliva microbiota hospitalized positive 61	NA	Saliva
+SRR22118539	41	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP58	Saliva microbiota hospitalized positive 58	male	Saliva
+SRR22118540	56	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP57	Saliva microbiota hospitalized positive 57	male	Saliva
+SRR22118541	20	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC31	Saliva microbiota asymptomatic AC31	male	Saliva
+SRR22118542	80	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP56	Saliva microbiota hospitalized positive 56	male	Saliva
+SRR22118543	74	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP55	Saliva microbiota hospitalized positive 55	male	Saliva
+SRR22118544	73	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP54	Saliva microbiota hospitalized positive 54	male	Saliva
+SRR22118545	44	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP51	Saliva microbiota hospitalized positive 51	NA	Saliva
+SRR22118546	38	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP50	Saliva microbiota hospitalized positive 50	female	Saliva
+SRR22118547	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP49	Saliva microbiota hospitalized positive 49	female	Saliva
+SRR22118548	29	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP48	Saliva microbiota hospitalized positive 48	female	Saliva
+SRR22118549	73	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP47	Saliva microbiota hospitalized positive 47	female	Saliva
+SRR22118550	38	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP46	Saliva microbiota hospitalized positive 46	male	Saliva
+SRR22118551	41	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP44	Saliva microbiota hospitalized positive 44	NA	Saliva
+SRR22118552	28	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC30	Saliva microbiota asymptomatic AC30	male	Saliva
+SRR22118553	32	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP43	Saliva microbiota hospitalized positive 43	male	Saliva
+SRR22118554	54	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP38	Saliva microbiota hospitalized positive 38	female	Saliva
+SRR22118555	54	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP34	Saliva microbiota hospitalized positive 34	male	Saliva
+SRR22118556	61	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN51	Saliva microbiota ambulatory negative 51	female	Saliva
+SRR22118557	25	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN50	Saliva microbiota ambulatory negative 50	male	Saliva
+SRR22118558	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN49	Saliva microbiota ambulatory negative 49	female	Saliva
+SRR22118559	27	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN48	Saliva microbiota ambulatory negative 48	male	Saliva
+SRR22118560	36	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN47	Saliva microbiota ambulatory negative 47	female	Saliva
+SRR22118561	59	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN46	Saliva microbiota ambulatory negative 46	female	Saliva
+SRR22118562	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN45	Saliva microbiota ambulatory negative 45	female	Saliva
+SRR22118563	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN44	Saliva microbiota ambulatory negative 44	female	Saliva
+SRR22118564	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN43	Saliva microbiota ambulatory negative 43	female	Saliva
+SRR22118565	48	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN42	Saliva microbiota ambulatory negative 42	male	Saliva
+SRR22118566	26	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC11	Saliva microbiota asymptomatic AC08	male	Saliva
+SRR22118567	54	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN41	Saliva microbiota ambulatory negative 41	female	Saliva
+SRR22118568	48	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN40	Saliva microbiota ambulatory negative 40	male	Saliva
+SRR22118569	21	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN39	Saliva microbiota ambulatory negative 39	male	Saliva
+SRR22118570	34	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN38	Saliva microbiota ambulatory negative 38	female	Saliva
+SRR22118571	44	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN37	Saliva microbiota ambulatory negative 37	male	Saliva
+SRR22118572	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN35	Saliva microbiota ambulatory negative 35	female	Saliva
+SRR22118573	36	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN34	Saliva microbiota ambulatory negative 34	female	Saliva
+SRR22118574	36	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN33	Saliva microbiota ambulatory negative 33	female	Saliva
+SRR22118575	40	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN31	Saliva microbiota ambulatory negative 31	female	Saliva
+SRR22118576	20	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN30	Saliva microbiota ambulatory negative 30	male	Saliva
+SRR22118577	31	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC09	Saliva microbiota asymptomatic AC07	male	Saliva
+SRR22118578	40	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN29	Saliva microbiota ambulatory negative 29	male	Saliva
+SRR22118579	0	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN28	Saliva microbiota ambulatory negative 28	male	Saliva
+SRR22118580	40	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN27	Saliva microbiota ambulatory negative 27	female	Saliva
+SRR22118581	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN26	Saliva microbiota ambulatory negative 26	female	Saliva
+SRR22118582	50	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN25	Saliva microbiota ambulatory negative 25	female	Saliva
+SRR22118583	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN24	Saliva microbiota ambulatory negative 24	female	Saliva
+SRR22118584	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN23	Saliva microbiota ambulatory negative 23	male	Saliva
+SRR22118585	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN22	Saliva microbiota ambulatory negative 22	male	Saliva
+SRR22118586	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN21	Saliva microbiota ambulatory negative 21	female	Saliva
+SRR22118587	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN20	Saliva microbiota ambulatory negative 20	female	Saliva
+SRR22118588	77	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP33	Saliva microbiota hospitalized positive 33	female	Saliva
+SRR22118589	63	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP31	Saliva microbiota hospitalized positive 31	male	Saliva
+SRR22118590	59	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP30	Saliva microbiota hospitalized positive 30	female	Saliva
+SRR22118591	59	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP27	Saliva microbiota hospitalized positive 27	male	Saliva
+SRR22118592	59	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP26	Saliva microbiota hospitalized positive 26	female	Saliva
+SRR22118593	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP25	Saliva microbiota hospitalized positive 25	female	Saliva
+SRR22118594	76	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP22	Saliva microbiota hospitalized positive 22	female	Saliva
+SRR22118595	44	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC29	Saliva microbiota asymptomatic AC29	male	Saliva
+SRR22118596	59	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP19	Saliva microbiota hospitalized positive 19	male	Saliva
+SRR22118597	73	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP12	Saliva microbiota hospitalized positive 12	female	Saliva
+SRR22118598	65	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP3	Saliva microbiota hospitalized positive 3	male	Saliva
+SRR22118599	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP129	Saliva microbiota ambulatory positive 129	NA	Saliva
+SRR22118600	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP128	Saliva microbiota ambulatory positive 128	NA	Saliva
+SRR22118601	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP127	Saliva microbiota ambulatory positive 127	NA	Saliva
+SRR22118602	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP126	Saliva microbiota ambulatory positive 126	female	Saliva
+SRR22118603	48	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP125	Saliva microbiota ambulatory positive 125	male	Saliva
+SRR22118604	24	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP124	Saliva microbiota ambulatory positive 124	male	Saliva
+SRR22118605	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP123	Saliva microbiota ambulatory positive 123	female	Saliva
+SRR22118606	19	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC28	Saliva microbiota asymptomatic AC28	female	Saliva
+SRR22118607	26	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC04	Saliva microbiota asymptomatic AC03	female	Saliva
+SRR22118608	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP122	Saliva microbiota ambulatory positive 122	male	Saliva
+SRR22118609	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP121	Saliva microbiota ambulatory positive 121	female	Saliva
+SRR22118610	43	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP120	Saliva microbiota ambulatory positive 120	male	Saliva
+SRR22118611	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP119	Saliva microbiota ambulatory positive 119	male	Saliva
+SRR22118612	34	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP118	Saliva microbiota ambulatory positive 118	female	Saliva
+SRR22118613	58	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP117	Saliva microbiota ambulatory positive 117	male	Saliva
+SRR22118614	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP116	Saliva microbiota ambulatory positive 116	female	Saliva
+SRR22118615	66	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP115	Saliva microbiota ambulatory positive 115	female	Saliva
+SRR22118616	33	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP114	Saliva microbiota ambulatory positive 114	male	Saliva
+SRR22118617	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP113	Saliva microbiota ambulatory positive 113	female	Saliva
+SRR22118618	29	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC24	Saliva microbiota asymptomatic AC24	female	Saliva
+SRR22118619	56	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP112	Saliva microbiota ambulatory positive 112	female	Saliva
+SRR22118620	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP79	Saliva microbiota ambulatory positive 79	NA	Saliva
+SRR22118621	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP78	Saliva microbiota ambulatory positive 78	NA	Saliva
+SRR22118622	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP76	Saliva microbiota ambulatory positive 76	NA	Saliva
+SRR22118623	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP75	Saliva microbiota ambulatory positive 75	NA	Saliva
+SRR22118624	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP74	Saliva microbiota ambulatory positive 74	NA	Saliva
+SRR22118625	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP73	Saliva microbiota ambulatory positive 73	NA	Saliva
+SRR22118626	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP72	Saliva microbiota ambulatory positive 72	NA	Saliva
+SRR22118627	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP71	Saliva microbiota ambulatory positive 71	NA	Saliva
+SRR22118628	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP70	Saliva microbiota ambulatory positive 70	NA	Saliva
+SRR22118629	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP69	Saliva microbiota ambulatory positive 69	NA	Saliva
+SRR22118630	31	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC20	Saliva microbiota asymptomatic AC20	female	Saliva
+SRR22118631	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP68	Saliva microbiota ambulatory positive 68	NA	Saliva
+SRR22118632	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP67	Saliva microbiota ambulatory positive 67	NA	Saliva
+SRR22118633	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP66	Saliva microbiota ambulatory positive 66	NA	Saliva
+SRR22118634	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP65	Saliva microbiota ambulatory positive 65	NA	Saliva
+SRR22118635	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP64	Saliva microbiota ambulatory positive 64	NA	Saliva
+SRR22118636	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP63	Saliva microbiota ambulatory positive 63	NA	Saliva
+SRR22118637	29	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP62	Saliva microbiota ambulatory positive 62	female	Saliva
+SRR22118638	29	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP61	Saliva microbiota ambulatory positive 61	female	Saliva
+SRR22118639	33	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP60	Saliva microbiota ambulatory positive 60	female	Saliva
+SRR22118640	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP59	Saliva microbiota ambulatory positive 59	NA	Saliva
+SRR22118641	19	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC19	Saliva microbiota asymptomatic AC15	male	Saliva
+SRR22118642	50	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP58	Saliva microbiota ambulatory positive 58	male	Saliva
+SRR22118643	73	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP57	Saliva microbiota ambulatory positive 57	male	Saliva
+SRR22118644	72	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP56	Saliva microbiota ambulatory positive 56	male	Saliva
+SRR22118645	66	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP55	Saliva microbiota ambulatory positive 55	female	Saliva
+SRR22118646	44	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP54	Saliva microbiota ambulatory positive 54	male	Saliva
+SRR22118647	35	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP53	Saliva microbiota ambulatory positive 53	male	Saliva
+SRR22118648	36	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP52	Saliva microbiota ambulatory positive 52	male	Saliva
+SRR22118649	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP51	Saliva microbiota ambulatory positive 51	male	Saliva
+SRR22118650	39	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP50	Saliva microbiota ambulatory positive 50	female	Saliva
+SRR22118651	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP48	Saliva microbiota ambulatory positive 48	male	Saliva
+SRR22118652	38	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN72	Saliva microbiota ambulatory negative 72	female	Saliva
+SRR22118653	32	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN71	Saliva microbiota ambulatory negative 71	female	Saliva
+SRR22118654	38	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN70	Saliva microbiota ambulatory negative 70	male	Saliva
+SRR22118655	44	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN69	Saliva microbiota ambulatory negative 69	female	Saliva
+SRR22118656	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN67	Saliva microbiota ambulatory negative 67	male	Saliva
+SRR22118657	45	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN66	Saliva microbiota ambulatory negative 66	female	Saliva
+SRR22118658	45	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN65	Saliva microbiota ambulatory negative 65	female	Saliva
+SRR22118659	38	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN64	Saliva microbiota ambulatory negative 64	female	Saliva
+SRR22118660	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN63	Saliva microbiota ambulatory negative 63	female	Saliva
+SRR22118661	34	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN62	Saliva microbiota ambulatory negative 62	female	Saliva
+SRR22118662	25	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC14	Saliva microbiota asymptomatic AC10	female	Saliva
+SRR22118663	48	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN61	Saliva microbiota ambulatory negative 61	male	Saliva
+SRR22118664	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN60	Saliva microbiota ambulatory negative 60	male	Saliva
+SRR22118665	40	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN59	Saliva microbiota ambulatory negative 59	female	Saliva
+SRR22118666	33	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN58	Saliva microbiota ambulatory negative 58	female	Saliva
+SRR22118667	35	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN57	Saliva microbiota ambulatory negative 57	female	Saliva
+SRR22118668	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN56	Saliva microbiota ambulatory negative 56	male	Saliva
+SRR22118669	51	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN55	Saliva microbiota ambulatory negative 55	female	Saliva
+SRR22118670	45	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN54	Saliva microbiota ambulatory negative 54	female	Saliva
+SRR22118671	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN53	Saliva microbiota ambulatory negative 53	male	Saliva
+SRR22118672	17	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN52	Saliva microbiota ambulatory negative 52	male	Saliva
+SRR22118673	26	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC12	Saliva microbiota asymptomatic AC09	male	Saliva
+SRR22118674	56	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC08	Saliva microbiota asymptomatic AC06	female	Saliva
+SRR22118675	23	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN19	Saliva microbiota ambulatory negative 19	female	Saliva
+SRR22118676	45	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN18	Saliva microbiota ambulatory negative 18	male	Saliva
+SRR22118677	22	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN17	Saliva microbiota ambulatory negative 17	female	Saliva
+SRR22118678	15	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN16	Saliva microbiota ambulatory negative 16	female	Saliva
+SRR22118679	41	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN15	Saliva microbiota ambulatory negative 15	female	Saliva
+SRR22118680	55	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN14	Saliva microbiota ambulatory negative 14	female	Saliva
+SRR22118681	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN13	Saliva microbiota ambulatory negative 13	female	Saliva
+SRR22118682	41	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN12	Saliva microbiota ambulatory negative 12	male	Saliva
+SRR22118683	31	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN11	Saliva microbiota ambulatory negative 11	male	Saliva
+SRR22118684	14	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN10	Saliva microbiota ambulatory negative 10	female	Saliva
+SRR22118685	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC06	Saliva microbiota asymptomatic AC05	female	Saliva
+SRR22118686	24	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN9	Saliva microbiota ambulatory negative 9	male	Saliva
+SRR22118687	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN8	Saliva microbiota ambulatory negative 8	female	Saliva
+SRR22118688	55	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN7	Saliva microbiota ambulatory negative 7	female	Saliva
+SRR22118689	34	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN6	Saliva microbiota ambulatory negative 6	female	Saliva
+SRR22118690	28	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN5	Saliva microbiota ambulatory negative 5	male	Saliva
+SRR22118691	70	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN4	Saliva microbiota ambulatory negative 4	female	Saliva
+SRR22118692	29	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN3	Saliva microbiota ambulatory negative 3	male	Saliva
+SRR22118693	54	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN2	Saliva microbiota ambulatory negative 2	male	Saliva
+SRR22118694	20	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN1	Saliva microbiota ambulatory negative 1	male	Saliva
+SRR22118695	33	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC46	Saliva microbiota asymptomatic AC46	male	Saliva
+SRR22118696	24	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC05	Saliva microbiota asymptomatic AC04	female	Saliva
+SRR22118697	20	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC45	Saliva microbiota asymptomatic AC45	female	Saliva
+SRR22118698	72	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP106	Saliva microbiota Deceased hospitalized positive 106	male	Saliva
+SRR22118699	75	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP92	Saliva microbiota Deceased hospitalized positive 92	male	Saliva
+SRR22118700	21	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC44	Saliva microbiota asymptomatic AC44	female	Saliva
+SRR22118701	66	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP90	Saliva microbiota Deceased hospitalized positive 90	male	Saliva
+SRR22118702	54	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP87	Saliva microbiota Deceased hospitalized positive 87	female	Saliva
+SRR22118703	58	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP85	Saliva microbiota Deceased hospitalized positive 85	male	Saliva
+SRR22118704	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP84	Saliva microbiota Deceased hospitalized positive 84	male	Saliva
+SRR22118705	83	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP83	Saliva microbiota Deceased hospitalized positive 83	male	Saliva
+SRR22118706	25	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP111	Saliva microbiota ambulatory positive 111	female	Saliva
+SRR22118707	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP110	Saliva microbiota ambulatory positive 110	female	Saliva
+SRR22118708	58	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP109	Saliva microbiota ambulatory positive 109	female	Saliva
+SRR22118709	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP108	Saliva microbiota ambulatory positive 108	male	Saliva
+SRR22118710	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP107	Saliva microbiota ambulatory positive 107	NA	Saliva
+SRR22118711	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP106	Saliva microbiota ambulatory positive 106	NA	Saliva
+SRR22118712	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP105	Saliva microbiota ambulatory positive 105	NA	Saliva
+SRR22118713	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP104	Saliva microbiota ambulatory positive 104	NA	Saliva
+SRR22118714	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP103	Saliva microbiota ambulatory positive 103	NA	Saliva
+SRR22118715	27	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC23	Saliva microbiota asymptomatic AC23	female	Saliva
+SRR22118716	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP102	Saliva microbiota ambulatory positive 102	NA	Saliva
+SRR22118717	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP101	Saliva microbiota ambulatory positive 101	NA	Saliva
+SRR22118718	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP100	Saliva microbiota ambulatory positive 100	NA	Saliva
+SRR22118719	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP99	Saliva microbiota ambulatory positive 99	NA	Saliva
+SRR22118720	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP98	Saliva microbiota ambulatory positive 98	NA	Saliva
+SRR22118721	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP97	Saliva microbiota ambulatory positive 97	NA	Saliva
+SRR22118722	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP96	Saliva microbiota ambulatory positive 96	NA	Saliva
+SRR22118723	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP95	Saliva microbiota ambulatory positive 95	NA	Saliva
+SRR22118724	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP94	Saliva microbiota ambulatory positive 94	NA	Saliva
+SRR22118725	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP93	Saliva microbiota ambulatory positive 93	NA	Saliva
+SRR22118726	22	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC22	Saliva microbiota asymptomatic AC22	female	Saliva
+SRR22118727	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP92	Saliva microbiota ambulatory positive 92	NA	Saliva
+SRR22118728	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP91	Saliva microbiota ambulatory positive 91	NA	Saliva
+SRR22118729	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP90	Saliva microbiota ambulatory positive 90	NA	Saliva
+SRR22118730	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP89	Saliva microbiota ambulatory positive 89	NA	Saliva
+SRR22118731	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP88	Saliva microbiota ambulatory positive 88	NA	Saliva
+SRR22118732	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP87	Saliva microbiota ambulatory positive 87	NA	Saliva
+SRR22118733	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP85	Saliva microbiota ambulatory positive 85	NA	Saliva
+SRR22118734	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP84	Saliva microbiota ambulatory positive 84	NA	Saliva
+SRR22118735	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP83	Saliva microbiota ambulatory positive 83	NA	Saliva
+SRR22118736	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP80	Saliva microbiota ambulatory positive 80	NA	Saliva
+SRR22118737	26	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC21	Saliva microbiota asymptomatic AC21	female	Saliva
+SRR22118738	32	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC18	Saliva microbiota asymptomatic AC14	male	Saliva
+SRR22118739	28	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP47	Saliva microbiota ambulatory positive 47	female	Saliva
+SRR22118740	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP46	Saliva microbiota ambulatory positive 46	NA	Saliva
+SRR22118741	53	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP45	Saliva microbiota ambulatory positive 45	male	Saliva
+SRR22118742	54	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP44	Saliva microbiota ambulatory positive 44	female	Saliva
+SRR22118743	23	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP43	Saliva microbiota ambulatory positive 43	female	Saliva
+SRR22118744	77	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP42	Saliva microbiota ambulatory positive 42	male	Saliva
+SRR22118745	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP39	Saliva microbiota ambulatory positive 39	male	Saliva
+SRR22118746	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP37	Saliva microbiota ambulatory positive 37	female	Saliva
+SRR22118747	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP21	Saliva microbiota ambulatory positive 21	male	Saliva
+SRR22118748	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP20	Saliva microbiota ambulatory positive 20	male	Saliva
+SRR22118749	23	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC17	Saliva microbiota asymptomatic AC13	male	Saliva
+SRR22118750	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP19	Saliva microbiota ambulatory positive 19	male	Saliva
+SRR22118751	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP18	Saliva microbiota ambulatory positive 18	female	Saliva
+SRR22118752	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP17	Saliva microbiota ambulatory positive 17	male	Saliva
+SRR22118753	23	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP16	Saliva microbiota ambulatory positive 16	female	Saliva
+SRR22118754	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP15	Saliva microbiota ambulatory positive 15	female	Saliva
+SRR22118755	45	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP14	Saliva microbiota ambulatory positive 14	female	Saliva
+SRR22118756	36	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP13	Saliva microbiota ambulatory positive 13	female	Saliva
+SRR22118757	56	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP12	Saliva microbiota ambulatory positive 12	female	Saliva
+SRR22118758	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP11	Saliva microbiota ambulatory positive 11	male	Saliva
+SRR22118759	45	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP10	Saliva microbiota ambulatory positive 10	female	Saliva
+SRR22118760	29	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC16	Saliva microbiota asymptomatic AC12	female	Saliva
+SRR22118761	33	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP9	Saliva microbiota ambulatory positive 9	male	Saliva
+SRR22118762	35	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP8	Saliva microbiota ambulatory positive 8	female	Saliva
+SRR22118763	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP7	Saliva microbiota ambulatory positive 7	female	Saliva
+SRR22118764	34	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP6	Saliva microbiota ambulatory positive 6	male	Saliva
+SRR22118765	40	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP5	Saliva microbiota ambulatory positive 5	male	Saliva
+SRR22118766	35	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AP4	Saliva microbiota ambulatory positive 4	female	Saliva
+SRR22118767	44	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN100	Saliva microbiota ambulatory negative 100	female	Saliva
+SRR22118768	67	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN93	Saliva microbiota ambulatory negative 93	female	Saliva
+SRR22118769	32	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN79	Saliva microbiota ambulatory negative 79	male	Saliva
+SRR22118770	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AN74	Saliva microbiota ambulatory negative 74	female	Saliva
+SRR22118771	27	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC15	Saliva microbiota asymptomatic AC11	male	Saliva
+SRR22118772	19	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC02	Saliva microbiota asymptomatic AC02	male	Saliva
+SRR22118773	25	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC01	Saliva microbiota asymptomatic AC01	female	Saliva
+SRR22118774	72	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP77	Saliva microbiota Deceased hospitalized positive 71	male	Saliva
+SRR22118775	69	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP70	Saliva microbiota Deceased hospitalized positive 77	male	Saliva
+SRR22118776	83	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP66	Saliva microbiota Deceased hospitalized positive 66	male	Saliva
+SRR22118777	66	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP63	Saliva microbiota Deceased hospitalized positive 63	female	Saliva
+SRR22118778	74	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP62	Saliva microbiota Deceased hospitalized positive 62	male	Saliva
+SRR22118779	25	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC41	Saliva microbiota asymptomatic AC41	male	Saliva
+SRR22118780	67	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP42	Saliva microbiota Deceased hospitalized positive 42	male	Saliva
+SRR22118781	71	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP28	Saliva microbiota Deceased hospitalized positive 28	female	Saliva
+SRR22118782	81	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP20	Saliva microbiota Deceased hospitalized positive 20	male	Saliva
+SRR22118783	78	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP17	Saliva microbiota Deceased hospitalized positive 17	male	Saliva
+SRR22118784	83	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP9	Saliva microbiota Deceased hospitalized positive 9	male	Saliva
+SRR22118785	68	INSTITUTO MEXICANO DEL SEGURO SOCIAL	DHP5	Saliva microbiota Deceased hospitalized positive 5	female	Saliva
+SRR22118786	37	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP105	Saliva microbiota hospitalized positive 105	female	Saliva
+SRR22118787	47	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP104	Saliva microbiota hospitalized positive 104	male	Saliva
+SRR22118788	77	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP103	Saliva microbiota hospitalized positive 103	male	Saliva
+SRR22118789	52	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP102	Saliva microbiota hospitalized positive 102	male	Saliva
+SRR22118790	22	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC36	Saliva microbiota asymptomatic AC36	female	Saliva
+SRR22118791	49	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP101	Saliva microbiota hospitalized positive 101	male	Saliva
+SRR22118792	57	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP100	Saliva microbiota hospitalized positive 100	NA	Saliva
+SRR22118793	51	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP99	Saliva microbiota hospitalized positive 99	male	Saliva
+SRR22118794	48	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP98	Saliva microbiota hospitalized positive 98	male	Saliva
+SRR22118795	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP97	Saliva microbiota hospitalized positive 97	male	Saliva
+SRR22118796	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP96	Saliva microbiota hospitalized positive 96	male	Saliva
+SRR22118797	51	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP95	Saliva microbiota hospitalized positive 95	male	Saliva
+SRR22118798	56	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP94	Saliva microbiota hospitalized positive 94	male	Saliva
+SRR22118799	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP91	Saliva microbiota hospitalized positive 91	female	Saliva
+SRR22118800	42	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP89	Saliva microbiota hospitalized positive 89	male	Saliva
+SRR22118801	30	INSTITUTO MEXICANO DEL SEGURO SOCIAL	AC34	Saliva microbiota asymptomatic AC34	female	Saliva
+SRR22118802	58	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP88	Saliva microbiota hospitalized positive 88	male	Saliva
+SRR22118803	46	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP86	Saliva microbiota hospitalized positive 86	female	Saliva
+SRR22118804	55	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP82	Saliva microbiota hospitalized positive 82	male	Saliva
+SRR22118805	NA	INSTITUTO MEXICANO DEL SEGURO SOCIAL	HP81	Saliva microbiota hospitalized positive 81	NA	Saliva
