@@ -1,25 +1,26 @@
-# --- 1. Load Library ---
 library(dplyr)
 library(ggplot2)
 library(phyloseq)
 library(pheatmap)
 library(tidyr)
 library(tibble)
+library(forcats)
 
-# --- 2. Load ISA + DESeq Data ---
+# --- 1. Get OTUs significant in BOTH ISA and DESeq2 ---
 isa_otus <- significant_indicators$OTU 
 deseq_otus <- deseq_all$OTU 
-both_otus <- intersect(isa_otus, deseq_otus) 
+both_otus <- intersect(isa_otus, deseq_otus)
 ps_both <- prune_taxa(both_otus, ps)
 
-# --- 3. Clean metadata and remove samples with NA groups ---
+# --- 2. Clean metadata and build Group_combined ---
 meta_df <- data.frame(sample_data(ps_both))
 meta_df$Group_combined <- paste(meta_df$sex, meta_df$Severity, sep = "_")
 meta_df <- meta_df %>% filter(!is.na(Group_combined))
+
 ps_both <- prune_samples(rownames(meta_df), ps_both)
 sample_data(ps_both) <- sample_data(meta_df)
 
-# --- 4. Taxonomy table ---
+# --- 3. Taxonomy table ---
 tax_df <- as.data.frame(tax_table(ps_both)) %>%
   rownames_to_column("OTU") %>%
   mutate(
@@ -44,16 +45,20 @@ tax_df <- as.data.frame(tax_table(ps_both)) %>%
     )
   )
 
-# --- 5. Melt phyloseq to long dataframe ---
+# --- 4. Melt phyloseq to long dataframe ---
 ps_df <- psmelt(ps_both)
 ps_df <- left_join(ps_df, tax_df %>% select(OTU, Label), by = "OTU")
 
-# --- 6. Summarize prevalence for plotting ---
+# --- 5. Summarize prevalence for plotting ---
 plot_data <- ps_df %>%
+  mutate(present = Abundance > 0) %>%
+  group_by(Group_combined, Label, Sample) %>%
+  summarize(sample_present = any(present), .groups = "drop") %>%
   group_by(Group_combined, Label) %>%
-  summarize(count = sum(Abundance > 0), .groups = "drop")
+  summarize(count = sum(sample_present), .groups = "drop")
 
-# --- 7. Keep top 50 OTUs by total prevalence ---
+
+# --- 5. Keep top 50 OTUs by total prevalence ---
 top_otus <- plot_data %>%
   group_by(Label) %>%
   summarize(total_count = sum(count), .groups = "drop") %>%
@@ -63,33 +68,55 @@ top_otus <- plot_data %>%
 
 plot_data_sub <- plot_data %>% filter(Label %in% top_otus)
 
+# --- 6. Order groups so male/female are side-by-side ---
+group_levels <- c(
+  "male_Control","female_Control",
+  "male_Mild","female_Mild",
+  "male_Severe","female_Severe",
+  "male_Fatal","female_Fatal"
+)
+plot_data_sub$Group_combined <- factor(plot_data_sub$Group_combined, levels = group_levels)
+
+# --- 7. Add Sex for bubble-plot coloring ---
+plot_data_sub$Sex <- ifelse(grepl("^male", plot_data_sub$Group_combined), "Male", "Female")
+
 # --- 8. Bubble plot ---
-gg_heat <- ggplot(plot_data_sub, aes(x = Group_combined, y = Label, size = count)) +
-  geom_point(color = "steelblue") +  # single color
-  guides(color = "none") +           # remove legend
+bubble_plot <- ggplot(plot_data_sub, aes(
+  x = Group_combined,
+  y = Label,
+  size = count,
+  color = Sex
+)) +
+  geom_point() +
+  scale_color_manual(values = c("Male" = "deepskyblue", "Female" = "plum")) +
   theme_minimal() +
   labs(
-    title = "Top 50 OTU Prevalence Across Groups",
+    title = "Top 50 OTU Prevalence (Male vs Female)",
     x = "Group",
-    y = "OTU"
+    y = "OTU",
+    color = "Sex"
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-print(gg_heat)
-ggsave("bubble_plot_top50.png", plot = gg_heat, width = 12, height = 10, dpi = 300)
+print(bubble_plot)
+ggsave("bubble_plot_top50_sexcolor.png", bubble_plot, width = 12, height = 10, dpi = 300)
 
 # --- 9. Stacked bar plot ---
-ISA_DESeq2_combined <- ggplot(plot_data_sub, aes(x = Group_combined, y = count, fill = Label)) +
+stacked_plot <- ggplot(plot_data_sub, aes(
+  x = Group_combined,
+  y = count,
+  fill = Label
+)) +
   geom_bar(stat = "identity") +
+  theme_minimal() +
   labs(
-    title = "Top 50 OTUs Significant in Both ISA and DESeq2",
+    title = "Top 50 OTUs Significant in both ISA & DESeq2",
     x = "Sex-Severity Group",
     y = "Number of Samples with Taxon Present",
     fill = "Taxon"
   ) +
-  theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-print(ISA_DESeq2_combined)
-ggsave("stacked_bar_top50.png", plot = ISA_DESeq2_combined, width = 12, height = 10, dpi = 300)
+print(stacked_plot)
+ggsave("stacked_top50.png", stacked_plot, width = 12, height = 10, dpi = 300)
 
