@@ -12,7 +12,7 @@ for (pkg in pkgs) { if (!requireNamespace(pkg, quietly = TRUE)) BiocManager::ins
 
 # when asked if you want to update all, some or none please type "n" for none 
 
-# After installing all of its above dependencies, install ggpicrust2 
+# After installing all of its above dependencies, install ggpicrust2 (no need if already installed)
 install.packages("ggpicrust2")
 
 library(readr)
@@ -26,6 +26,7 @@ library(DESeq2)
 library(ggh4x)
 library(stringr)
 library(cowplot)
+library(matrixStats)
 
 
 # 1. Read PICRUSt2 unstratified pathway abundance table
@@ -39,7 +40,6 @@ abundance_data <- read_tsv(
 metadata <- read_tsv(metadata_file)
 
 ### 3. Build severity + severity_sex groups and drop MildNegative ####
-
 metadata <- metadata |>
   dplyr::mutate(
     # 4 severity levels from the long Group text
@@ -51,15 +51,16 @@ metadata <- metadata |>
       stringr::str_detect(Group, regex("hospitalized positive", ignore_case = TRUE)) ~ "Severe+",
       TRUE ~ NA_character_
     ),
-    sex = dplyr::if_else(sex %in% c("male", "female"), sex, NA_character_)
+    sex_short = dplyr::case_when(
+      sex == "female" ~ "F",
+      sex == "male"   ~ "M",
+      TRUE            ~ NA_character_
+    ),
+    severity_sex = paste0(severity, "_", sex_short)
   ) |>
   # drop Mild negatives and any rows without clear severity/sex
   dplyr::filter(severity != "Mild_neg") |>
-  dplyr::filter(!is.na(severity), !is.na(sex)) |>
-  dplyr::mutate(
-    severity_sex = paste0(severity, "_", substr(sex, 1, 1))
-  )
-
+  dplyr::filter(!is.na(severity_sex))
 
 # lock factor order (also forces Deceased F/M to be kept if present)
 metadata$severity_sex <- factor(
@@ -86,12 +87,12 @@ abundance_data_filtered <- abundance_data_filtered[, c(TRUE, non_zero)]
 
 #### 7. Align metadata rows and order with filtered abundance table ####
 abun_samples <- colnames(abundance_data_filtered)[-1]
-
 metadata <- metadata[metadata$`sample-id` %in% abun_samples, ]
 metadata <- metadata[match(abun_samples, metadata$`sample-id`), ]
 metadata <- as.data.frame(metadata)
 rownames(metadata) <- metadata$`sample-id`
 metadata$sample_name <- metadata$`sample-id`
+
 #### 8. Differential abundance testing at pathway level (DESeq2 on severity_sex) ####
 abundance_daa_results_df <- pathway_daa(
   abundance  = abundance_data_filtered %>% tibble::column_to_rownames("pathway"),
@@ -265,18 +266,19 @@ DEseq2_function <- function(abundance_table, metadata, col_of_interest) {
   DESeq2_colnames <- colnames(DESeq2_metadata)
   DESeq2_colnames[DESeq2_colnames == col_of_interest] <- "Group_group_nonsense"
   colnames(DESeq2_metadata) <- DESeq2_colnames
-  DESeq2_metadata[,"Group_group_nonsense"] <- as.factor(DESeq2_metadata[,"Group_group_nonsense"])
+  DESeq2_metadata$Group_group_nonsense <- factor(DESeq2_metadata$Group_group_nonsense)
   
   # 17.2 Build count matrix with pathways as rows, samples as columns ----
-  DESeq2_abundance_mat <- abundance_table %>%
+  DESeq2_abundance_mat <- abundance_table |>
     tibble::column_to_rownames("pathway")
   
-  # Ensure column order of counts == rownames(metadata) (sample IDs)
+  # ensure column order of counts == metadata row order
   DESeq2_abundance_mat <- DESeq2_abundance_mat[, rownames(DESeq2_metadata), drop = FALSE]
   
-  # 17.3 Generate all pairwise combinations of groups ----
-  groups <- unique(DESeq2_metadata[,"Group_group_nonsense"])
-  DESeq2_combinations <- utils::combn(groups, 2)  # 2 x N matrix
+  # 17.3 Generate all pairwise combinations of groups (as CHARACTERS) ----
+  groups_char <- unique(as.character(DESeq2_metadata$Group_group_nonsense))
+  groups_char <- groups_char[!is.na(groups_char)]
+  DESeq2_combinations <- utils::combn(groups_char, 2)  # 2 x N matrix
   
   DESeq2_results_list <- vector("list", ncol(DESeq2_combinations))
   
@@ -284,17 +286,16 @@ DEseq2_function <- function(abundance_table, metadata, col_of_interest) {
   
   # 17.4 Loop over each pair of groups and run DESeq2 ----
   for (i in seq_len(ncol(DESeq2_combinations))) {
-    pair <- DESeq2_combinations[, i]
-    g1 <- pair[1]
-    g2 <- pair[2]
+    g1 <- DESeq2_combinations[1, i]
+    g2 <- DESeq2_combinations[2, i]
     
     message("  Contrast: ", g2, " vs ", g1)
     
     # subset samples in these two groups
     sub_idx <- DESeq2_metadata$Group_group_nonsense %in% c(g1, g2)
-    DESeq2_metadata_sub   <- DESeq2_metadata[sub_idx, , drop = FALSE]
-    DESeq2_abundance_sub  <- DESeq2_abundance_mat[, sub_idx, drop = FALSE]
-    DESeq2_abundance_sub  <- round(DESeq2_abundance_sub)
+    DESeq2_metadata_sub  <- droplevels(DESeq2_metadata[sub_idx, , drop = FALSE])
+    DESeq2_abundance_sub <- DESeq2_abundance_mat[, sub_idx, drop = FALSE]
+    DESeq2_abundance_sub <- round(DESeq2_abundance_sub)
     
     # DESeq2 object
     DESeq2_object <- DESeq2::DESeqDataSetFromMatrix(
@@ -303,11 +304,10 @@ DEseq2_function <- function(abundance_table, metadata, col_of_interest) {
       design    = ~ Group_group_nonsense
     )
     
-    # size factors with poscounts (works better with many zeros)
-    DESeq2_object <- DESeq2::estimateSizeFactors(DESeq2_object, type = "poscounts")
+    DESeq2_object <- BiocGenerics::estimateSizeFactors(DESeq2_object, type = "poscounts")
     DESeq2_object <- DESeq2::DESeq(DESeq2_object)
     
-    #  g2 vs g1 (this matches typical "case_vs_control" logic)
+    # results: g2 vs g1
     res <- as.data.frame(
       DESeq2::results(
         DESeq2_object,
@@ -362,21 +362,22 @@ sig_res <- deseq_res_annot %>%
 table(sig_res$contrast)
 
 ### 17d. Make and save a log2FC barplot for *every* contrast with ≥1 sig pathway ----
-
 all_contrasts <- unique(sig_res$contrast)
 
 for (cname in all_contrasts) {
   plot_data <- sig_res %>%
     dplyr::filter(contrast == cname) %>%
-    dplyr::arrange(log2FoldChange)
+    # order by significance, then effect size
+    dplyr::arrange(padj, dplyr::desc(abs(log2FoldChange))) %>%
+    # keep only the top 20 pathways
+    dplyr::slice_head(n = 20)
   
   if (nrow(plot_data) == 0) next
   
-  p <- ggplot(plot_data, aes(
-    y    = reorder(description, log2FoldChange),
-    x    = log2FoldChange,
-    fill = padj
-  )) +
+  p <- ggplot(plot_data,
+              aes(y    = reorder(description, log2FoldChange),
+                  x    = log2FoldChange,
+                  fill = padj)) +
     geom_col() +
     theme_bw() +
     labs(
@@ -388,10 +389,18 @@ for (cname in all_contrasts) {
       name  = "FDR (padj)",
       low   = "red",
       high  = "grey80",
-      trans = "reverse"  # darker = more significant
+      trans = "reverse"
+    ) +
+    theme(
+      axis.text.y  = element_text(size = 5),   # smaller pathway labels
+      axis.text.x  = element_text(size = 8),
+      axis.title   = element_text(size = 9),
+      plot.title   = element_text(size = 10, face = "bold"),
+      legend.title = element_text(size = 8),
+      legend.text  = element_text(size = 7)
     )
   
-  print(p)  # shows in RStudio
+  print(p)
   
   # Safe filename (remove weird symbols)
   safe_name <- gsub("[^A-Za-z0-9_]+", "_", cname)
@@ -399,11 +408,262 @@ for (cname in all_contrasts) {
   ggsave(
     filename = paste0("Fig_DESeq2_pathways_", safe_name, ".png"),
     plot     = p,
-    width    = 8,
+    width    = 6,
+    height   = 7,
+    dpi      = 300
+  )
+}
+
+### 18. Prevalence filter + TSS+CLR transform for exploratory plots (3F) ----
+
+# counts matrix: all pathways (rows) × samples (cols)
+counts_mat_all <- abundance_data_filtered %>%
+  tibble::column_to_rownames("pathway") %>%
+  as.matrix()
+
+# 18a. Prevalence filter: keep pathways present in ≥10% of samples
+prevalence_vec <- rowMeans(counts_mat_all > 0)
+keep_rows      <- prevalence_vec >= 0.10
+counts_mat_pf  <- counts_mat_all[keep_rows, , drop = FALSE]
+
+# 18b. Total-sum scaling (TSS)
+col_totals   <- colSums(counts_mat_pf)
+rel_abun     <- sweep(counts_mat_pf, 2, col_totals, "/")
+
+# 18c. CLR transform (add small pseudocount to avoid log(0))
+rel_abun[rel_abun == 0] <- 1e-6
+log_rel  <- log(rel_abun)
+clr_mat  <- sweep(log_rel, 2, colMeans(log_rel), "-")  # center per sample
+
+### 18.d CLR-based heatmap on top 25 most variable pathways ----
+
+# choose how many pathways to show
+top_n <- 25
+
+# compute variance for each pathway across samples
+row_var <- matrixStats::rowVars(as.matrix(clr_mat))
+
+# get indices for top N most variable pathways
+keep_idx <- order(row_var, decreasing = TRUE)[1:top_n]
+
+# subset CLR matrix
+clr_mat_top <- clr_mat[keep_idx, , drop = FALSE]
+
+# draw heatmap grouped by severity_sex
+heat_clr <- pathway_heatmap(
+  abundance = clr_mat_top,
+  metadata  = metadata,
+  group     = "severity_sex"
+)
+
+heat_clr <- heat_clr +
+  theme(
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.y  = element_text(size = 5),  # smaller y-axis labels
+    plot.margin  = margin(5.5, 40, 5.5, 5.5)
+  ) +
+  coord_cartesian(clip = "off")
+
+ggsave(
+  filename = "Fig1b_pathway_heatmap_CLR_severity_sex.png",
+  plot     = heat_clr,
+  width    = 10,
+  height   = 6,
+  dpi      = 300
+)
+
+# 18e. CLR-based heatmap using ggpicrust2
+heat_clr <- pathway_heatmap(
+  abundance = clr_mat,
+  metadata  = metadata,
+  group     = "severity_sex"
+)
+
+heat_clr <- heat_clr +
+  theme(
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.y  = element_text(size = 8),
+    plot.margin  = margin(5.5, 40, 5.5, 5.5)
+  ) +
+  coord_cartesian(clip = "off")
+
+ggsave(
+  filename = "Fig1c_pathway_heatmap_CLR_severity_sex.png",
+  plot     = heat_clr,
+  width    = 14,
+  height   = 7,
+  dpi      = 300
+)
+
+
+### 19. Sex effects within Mild+ and Severe+ COVID groups (3G) ----
+
+run_sex_within_severity <- function(severity_label) {
+  meta_sub <- metadata %>%
+    dplyr::filter(severity == severity_label)
+  
+  message("Running DESeq2 for sex within severity = ", severity_label,
+          " (n = ", nrow(meta_sub), " samples)")
+  
+  # counts for those samples only
+  counts_sub <- abundance_data_filtered[, c("pathway", meta_sub$`sample-id`)]
+  mat_sub    <- counts_sub %>%
+    tibble::column_to_rownames("pathway") %>%
+    as.matrix()
+  
+  dds <- DESeq2::DESeqDataSetFromMatrix(
+    countData = round(mat_sub),
+    colData   = meta_sub,
+    design    = ~ sex_short
+  )
+  
+  dds <- BiocGenerics::estimateSizeFactors(dds, type = "poscounts")
+  dds <- DESeq2::DESeq(dds)
+  
+  # contrast: Male vs Female
+  res <- as.data.frame(
+    DESeq2::results(dds, contrast = c("sex_short", "M", "F"))
+  )
+  
+  res$feature  <- rownames(res)
+  res$severity <- severity_label
+  res
+}
+
+sex_mildplus  <- run_sex_within_severity("Mild+")
+sex_severeplus <- run_sex_within_severity("Severe+")
+
+sex_within_severity <- dplyr::bind_rows(sex_mildplus, sex_severeplus)
+
+sex_within_severity_annot <- sex_within_severity %>%
+  dplyr::inner_join(metacyc_daa_annotated_results_df, by = "feature") %>%
+  dplyr::select(
+    feature,
+    description,
+    severity,
+    baseMean,
+    log2FoldChange,
+    lfcSE,
+    stat,
+    pvalue,
+    padj
+  )
+
+readr::write_tsv(
+  sex_within_severity_annot,
+  "Table_DESeq2_sex_within_MildPlus_SeverePlus.tsv"
+)
+
+
+### 20. Volcano plots for key sex contrasts (3H) ----
+
+volcano_targets <- c(
+  "Asymp_M_vs_Asymp_F",
+  "Mild+_M_vs_Mild+_F",
+  "Severe+_M_vs_Severe+_F",
+  "Deceased_M_vs_Deceased_F"
+)
+
+existing_contrasts <- intersect(volcano_targets,
+                                unique(deseq_res_annot$contrast))
+
+for (cname in existing_contrasts) {
+  vdat <- deseq_res_annot %>%
+    dplyr::filter(contrast == cname, !is.na(padj))
+  
+  if (nrow(vdat) == 0) next
+  
+  vdat <- vdat %>%
+    dplyr::mutate(
+      neg_log10_padj = -log10(padj),
+      sig            = padj < 0.05 & abs(log2FoldChange) >= 0.5
+    )
+  
+  p_volcano <- ggplot(vdat,
+                      aes(x = log2FoldChange,
+                          y = neg_log10_padj,
+                          colour = sig)) +
+    geom_point(alpha = 0.7, size = 1.5) +
+    scale_colour_manual(
+      values = c("FALSE" = "grey70", "TRUE" = "red"),
+      name   = "Significant\n(padj < 0.05,\n|log2FC| ≥ 0.5)"
+    ) +
+    theme_bw() +
+    labs(
+      title = paste("Volcano plot:", cname),
+      x     = "log2 fold change (M vs F)",
+      y     = expression(-log[10](padj))
+    )
+  
+  safe_name <- gsub("[^A-Za-z0-9_]+", "_", cname)
+  
+  ggsave(
+    filename = paste0("Fig_DESeq2_volcano_", safe_name, ".png"),
+    plot     = p_volcano,
+    width    = 7,
     height   = 6,
     dpi      = 300
   )
 }
+
+
+### 21. Top-10 up- and down-regulated pathway tables per contrast (3J) ----
+
+all_contrasts_full <- unique(deseq_res_annot$contrast)
+
+for (cname in all_contrasts_full) {
+  cdat <- deseq_res_annot %>%
+    dplyr::filter(contrast == cname, !is.na(padj))
+  
+  if (nrow(cdat) == 0) next
+  
+  top_up <- cdat %>%
+    dplyr::arrange(dplyr::desc(log2FoldChange)) %>%
+    dplyr::slice_head(n = 10)
+  
+  top_down <- cdat %>%
+    dplyr::arrange(log2FoldChange) %>%
+    dplyr::slice_head(n = 10)
+  
+  safe_name <- gsub("[^A-Za-z0-9_]+", "_", cname)
+  
+  readr::write_tsv(
+    top_up,
+    paste0("Table_DESeq2_top10_up_", safe_name, ".tsv")
+  )
+  
+  readr::write_tsv(
+    top_down,
+    paste0("Table_DESeq2_top10_down_", safe_name, ".tsv")
+  )
+}
+
+
+### 22. OPTIONAL: Pathway–taxa mapping hook for Aim 2 (3I) ----
+# This will ONLY run if you have already created an object
+# `aim2_taxa_pathway_map` with a column `feature` (MetaCyc ID) and
+# one or more taxonomic columns (e.g. genus, species, KO, etc.).
+
+if (exists("aim2_taxa_pathway_map")) {
+  pathway_taxa_sig <- sig_res %>%
+    dplyr::select(feature, description, contrast,
+                  log2FoldChange, padj) %>%
+    dplyr::left_join(aim2_taxa_pathway_map, by = "feature")
+  
+  readr::write_tsv(
+    pathway_taxa_sig,
+    "Table_Pathway_Taxa_mapping_sig_pathways.tsv"
+  )
+} else {
+  message("Note: to generate the Aim 2 ↔ Aim 3 pathway–taxa mapping, ",
+          "first load a data frame named `aim2_taxa_pathway_map` ",
+          "with a `feature` column matching MetaCyc IDs, then re-run section 22.")
+}
+
 
 
 
