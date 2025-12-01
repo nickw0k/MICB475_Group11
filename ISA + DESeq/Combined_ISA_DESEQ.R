@@ -77,12 +77,14 @@ stacked_plot <- ggplot(plot_data, aes(
     fill = "Family"
   ) +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
-    axis.title.x = element_text(face = "bold"),
-    axis.title.y = element_text(face = "bold"),
+    title = element_text(size = 12, face = "bold"),
+    axis.text.x = element_text(angle = 40, hjust = 1, size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.x = element_text(face = "bold", size = 11),
+    axis.title.y = element_text(face = "bold", size = 11 ),
     legend.position = "right",
     legend.key.size = unit(0.4, "cm"),
-    legend.text = element_text(size = 8),
+    legend.text = element_text(size = 9),
     legend.title = element_text(size = 9),
     legend.box = "vertical"
   )
