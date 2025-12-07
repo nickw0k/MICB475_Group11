@@ -18,9 +18,8 @@ otu  <- read.delim(otuFP, sep = "\t", skip = 1, stringsAsFactors = FALSE)
 tax  <- read.delim(taxFP, sep = "\t", stringsAsFactors = FALSE)
 phy  <- read.tree(phyFP)
 
-
 # --- 3. Phyloseq Data Prep ---
-otu_mat <- as.matrix(otu[ , -1])
+otu_mat <- as.matrix(otu[, -1])
 rownames(otu_mat) <- otu$X.OTU.ID
 OTU <- otu_table(otu_mat, taxa_are_rows = TRUE)
 
@@ -31,7 +30,7 @@ tax_mat <- tax %>%
   mutate(across(everything(), ~ str_replace_all(.x, "^[a-z]__", ""))) %>%
   as.data.frame(stringsAsFactors = FALSE)
 
-tax_mat2 <- as.matrix(tax_mat[ , -1])
+tax_mat2 <- as.matrix(tax_mat[, -1])
 rownames(tax_mat2) <- tax$Feature.ID
 TAX <- tax_table(tax_mat2)
 
@@ -40,46 +39,51 @@ META <- sample_data(meta)
 
 ps <- phyloseq(OTU, TAX, META, phy)
 
-
-# --- 4. Separate phyloseq object into sex-severity groups ---
-
+# --- 4. Define sex-severity groups ---
 sample_data(ps)$sex[sample_data(ps)$sex %in% c("", " ", "NA")] <- NA
 
 sample_data(ps)$Severity <- NA
 sample_data(ps)$Severity[grepl("asymptomatic", sample_data(ps)$Group, ignore.case = TRUE)] <- "Control"
 sample_data(ps)$Severity[grepl("ambulatory positive", sample_data(ps)$Group, ignore.case = TRUE)] <- "Mild"
 sample_data(ps)$Severity[grepl("hospitalized positive", sample_data(ps)$Group, ignore.case = TRUE)] <- "Severe"
-sample_data(ps)$Severity[grepl("Deceased hospitalized", sample_data(ps)$Group, ignore.case = TRUE)] <- "Fatal"
+sample_data(ps)$Severity[grepl("Deceased hospitalized", sample_data(ps)$Group, ignore.case = TRUE)] <- "Deceased"
 
 sample_data(ps)$Group_combined <- paste(sample_data(ps)$sex, sample_data(ps)$Severity, sep = "_")
 
-desired_levels <- c("male_Control","male_Mild","male_Severe","male_Fatal",
-                    "female_Control","female_Mild","female_Severe","female_Fatal")
+desired_levels <- c("male_Control","male_Mild","male_Severe","male_Deceased",
+                    "female_Control","female_Mild","female_Severe","female_Deceased")
 present_levels <- intersect(desired_levels, unique(sample_data(ps)$Group_combined))
 sample_data(ps)$Group_combined <- factor(sample_data(ps)$Group_combined, levels = present_levels)
 
 ps <- subset_samples(ps, !is.na(Group_combined))
 
-
-# --- 5. Filter Sparse Taxa --- 
-
+# --- 5. Filter sparse taxa ---
 min_prevalence <- 3
 min_count      <- 5
 ps_filt <- filter_taxa(ps, function(x) sum(x >= min_count) >= min_prevalence & sum(x) > 10, TRUE)
 
+# --- 6. Collapse to genus level ---
+ps_genus <- tax_glom(ps_filt, taxrank = "Genus", NArm = TRUE)
 
-# --- 6. DESeq Analysis ---
+tax_df_genus <- as.data.frame(tax_table(ps_genus)) %>%
+  rownames_to_column("OTU") %>%
+  mutate(Label = ifelse(!is.na(Genus) & Genus != "", Genus, NA)) %>%
+  filter(!is.na(Label)) %>%
+  select(OTU, Label)
 
-dds <- phyloseq_to_deseq2(ps_filt, ~ Group_combined)
+# Keep only OTUs with valid genus
+ps_genus <- prune_taxa(tax_df_genus$OTU, ps_genus)
+
+tax_table(ps_genus) <- tax_table(as.matrix(tax_df_genus %>% column_to_rownames("OTU")))
+
+# --- 7. DESeq2 analysis ---
+dds <- phyloseq_to_deseq2(ps_genus, ~ Group_combined)
 dds <- estimateSizeFactors(dds, type = "poscounts")
 dds <- DESeq(dds, fitType = "parametric")
 
-
-# --- 7. Pairwise Contrasts + LFC Shrinkage ---
-
-groups <- levels(droplevels(sample_data(ps_filt)$Group_combined))
+# --- 8. Pairwise contrasts + LFC shrinkage ---
+groups <- levels(droplevels(sample_data(ps_genus)$Group_combined))
 comparisons <- combn(groups, 2, simplify = FALSE)
-
 results_list <- list()
 
 for (comp in comparisons) {
@@ -87,13 +91,13 @@ for (comp in comparisons) {
   cname <- paste0(a, "_vs_", b)
   
   res_raw <- tryCatch(results(dds, contrast = c("Group_combined", a, b)), error = function(e) NULL)
-  if(is.null(res_raw)) next
+  if (is.null(res_raw)) next
   
   res_raw_df <- as.data.frame(res_raw) %>% rownames_to_column("OTU")
   
   res_shrunk <- tryCatch(lfcShrink(dds, contrast = c("Group_combined", a, b), type = "normal"), error = function(e) NULL)
   
-  if(!is.null(res_shrunk)) {
+  if (!is.null(res_shrunk)) {
     res_shrunk_df <- as.data.frame(res_shrunk) %>% rownames_to_column("OTU") %>% select(OTU, log2FoldChange)
     res_combined <- res_raw_df %>%
       left_join(res_shrunk_df, by = "OTU", suffix = c("_raw", "")) %>%
@@ -108,33 +112,10 @@ for (comp in comparisons) {
 
 deseq_all <- bind_rows(results_list)
 
+# --- 9. Annotate genera ---
+deseq_all <- left_join(deseq_all, tax_df_genus, by = "OTU")
 
-# --- 8. Annotate Taxonomy ---
-
-tax_df <- as.data.frame(tax_table(ps_filt)) %>%
-  rownames_to_column("OTU") %>%
-  mutate(across(everything(), ~ na_if(.x, ""))) %>%
-
-  mutate(
-    Label = case_when(
-      !is.na(Species) & Species != "" ~ paste0("s__", Species),
-      !is.na(Genus)   & Genus   != "" ~ paste0("g__", Genus),
-      !is.na(Family)  & Family  != "" ~ paste0("f__", Family),
-      !is.na(Order)   & Order   != "" ~ paste0("o__", Order),
-      !is.na(Class)   & Class   != "" ~ paste0("c__", Class),
-      !is.na(Phylum)  & Phylum  != "" ~ paste0("p__", Phylum),
-      !is.na(Domain)  & Domain  != "" ~ paste0("d__", Domain),
-      TRUE                            ~ OTU
-    )
-  ) %>%
-  
-  select(OTU, Label)
-
-deseq_all <- left_join(deseq_all, tax_df, by = "OTU")
-
-
-# --- 9. Filter Significant OTUs ---
-
+# --- 10. Filter significant genera ---
 if(!"padj" %in% colnames(deseq_all)) {
   sig_deseq <- deseq_all %>% filter(!is.na(pvalue) & pvalue <= 0.05)
 } else {
@@ -142,39 +123,74 @@ if(!"padj" %in% colnames(deseq_all)) {
 }
 
 sig_deseq <- sig_deseq %>% filter(!is.na(log2FoldChange), !is.na(Label)) %>% mutate(Label = as.character(Label))
-
-sig_deseq_plot <- sig_deseq %>%
-  filter(!is.na(padj) & padj <= 0.05) %>%
-  filter(!is.na(Label), !is.na(log2FoldChange)) %>%
-  mutate(Label = as.character(Label)) 
-
+sig_deseq_plot <- sig_deseq
 contrasts <- unique(sig_deseq_plot$contrast)
 
+# --- 11a. Log2Fold Bar Plots ---
 for (c in contrasts) {
   df <- sig_deseq_plot %>% filter(contrast == c)
+  df <- df %>% mutate(Label = fct_reorder(Label, log2FoldChange),
+                      direction = ifelse(log2FoldChange > 0, "Up", "Down"))
   
-  df <- df %>% mutate(Label = fct_reorder(Label, log2FoldChange))
+  groups <- unlist(strsplit(c, "_vs_"))
+  group1 <- groups[1]; group2 <- groups[2]
   
-
-  df <- df %>% mutate(direction = ifelse(log2FoldChange > 0, "Up", "Down"))
+  df <- df %>% mutate(direction_label = case_when(
+    direction == "Up" ~ paste("Higher in", group1),
+    direction == "Down" ~ paste("Higher in", group2)
+  ))
   
+  color_mapping <- setNames(c("cornflowerblue", "plum2"),
+                            c(paste("Higher in", group1), paste("Higher in", group2)))
   
-  # ---10. Plot ---
-  p <- ggplot(df, aes(x = Label, y = log2FoldChange, fill = direction)) +
+  p <- ggplot(df, aes(x = Label, y = log2FoldChange, fill = direction_label)) +
     geom_col(show.legend = TRUE) +
-    coord_flip() +  
+    coord_flip() +
     theme_minimal() +
-    labs(
-      title = paste0("Significant OTUs — ", c),
-      x = "OTU",
-      y = "log2 Fold Change"
-    ) +
-    scale_fill_manual(values = c("Up" = "plum2", "Down" = "cornflowerblue")) +
-    theme(
-      axis.text.y = element_text(size = 6),  # smaller font if many OTUs
-      plot.title = element_text(hjust = 0.5)
-    )
+    labs(title = paste0("Significant Genera — ", c),
+         x = "Genus",
+         y = "log2 Fold Change",
+         fill = "Abundance Difference") +
+    scale_fill_manual(values = color_mapping) +
+    theme(axis.text.y = element_text(size = 9),
+          axis.text.x = element_text(size = 9),
+          plot.title = element_text(hjust = 0.5))
   
-  ggsave(filename = paste0("DESeq2_", c, "_individual_OTUs.png"),
-         plot = p, width = 10, height = 6, dpi = 300)}
+  ggsave(filename = paste0("DESeq2_Genus_", c, ".png"), plot = p, width = 10, height = 6, dpi = 300)
+}
 
+# --- 11b. Volcano Plots ---
+for (c in contrasts) {
+  df <- sig_deseq_plot %>% filter(contrast == c)
+  df_volcano <- df %>% filter(!is.na(padj), !is.na(log2FoldChange)) %>%
+    mutate(neglog10_padj = -log10(padj))
+  
+  groups <- unlist(strsplit(c, "_vs_"))
+  group1 <- groups[1]; group2 <- groups[2]
+  
+  df_volcano <- df_volcano %>% mutate(significance = case_when(
+    padj < 0.05 & log2FoldChange > 0 ~ paste("Higher in", group1),
+    padj < 0.05 & log2FoldChange < 0 ~ paste("Higher in", group2),
+    TRUE ~ "Not Significant"
+  ))
+  
+  color_mapping <- setNames(c("#1f78b4", "#e31a1c", "grey70"),
+                            c(paste("Higher in", group1),
+                              paste("Higher in", group2),
+                              "Not Significant"))
+  
+  volcano_plot <- ggplot(df_volcano, aes(x = log2FoldChange, y = neglog10_padj)) +
+    geom_point(aes(color = significance), size = 2, alpha = 0.7) +
+    geom_vline(xintercept = 0, linetype = "dashed") +
+    geom_hline(yintercept = -log10(0.05), linetype = "dotted") +
+    scale_color_manual(values = color_mapping) +
+    theme_minimal() +
+    labs(title = paste0("Volcano Plot — ", c),
+         x = "log2 Fold Change",
+         y = "-log10(adj p-value)",
+         color = "Significance") +
+    theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+  
+  ggsave(filename = paste0("Volcano_Genus_", c, ".png"),
+         plot = volcano_plot, width = 8, height = 8, dpi = 300)
+}
