@@ -45,16 +45,8 @@ tax_mat <- tax %>%
 tax_mat2 <- as.matrix(tax_mat[,-1])
 rownames(tax_mat2) <- tax$Feature.ID
 
-# Replace missing/empty family names with "Unclassified"
-tax_mat2[, "Family"] <- ifelse(
-  is.na(tax_mat2[, "Family"]) | tax_mat2[, "Family"] == "" | tax_mat2[, "Family"] == "f__",
-  "Unclassified",
-  tax_mat2[, "Family"]
-)
-
-TAX <- tax_table(tax_mat2)
-
 # Construct phyloseq object
+TAX <- tax_table(tax_mat2)
 ps <- phyloseq(OTU, TAX, META, phy)
 
 # --- 4. Define sex-severity groups ---
@@ -68,12 +60,12 @@ meta$Severity[grepl("deceased hospitalized", tolower(meta$Group))] <- "Deceased"
 meta$Group_combined <- paste(meta$sex, meta$Severity, sep = "_")
 sample_data(ps) <- sample_data(meta)
 
-# --- 5. Collapse to Family Level ---
-ps_family <- tax_glom(ps, taxrank = "Family", NArm = TRUE)
+# --- 5. Collapse to Genus Level ---
+ps_genus <- tax_glom(ps, taxrank = "Genus", NArm = TRUE)
 
 # --- 6. Prepare data for ISA ---
-otu_mat <- as.data.frame(t(otu_table(ps_family)))
-meta_df <- data.frame(sample_data(ps_family), stringsAsFactors = FALSE)
+otu_mat <- as.data.frame(t(otu_table(ps_genus)))
+meta_df <- data.frame(sample_data(ps_genus), stringsAsFactors = FALSE)
 
 # Keep only samples with non-NA Group_combined
 meta_clean <- meta_df[!is.na(meta_df$Group_combined), ]
@@ -102,30 +94,39 @@ sig_table$cluster <- group_names[sig_table$index]
 significant_indicators <- sig_table %>%
   select(OTU, stat, p.value, cluster)
 
-# --- 9. Annotate with Family Names ---
-tax_df <- as.data.frame(tax_table(ps_family)) %>%
+# --- 9. Annotate with Genus Names ---
+tax_df <- as.data.frame(tax_table(ps_genus)) %>%
   rownames_to_column("OTU") %>%
-  mutate(
-    Label = Family  # Already replaced missing values with "Unclassified"
-  )
+  mutate(Label = Genus) %>% 
+  filter(!is.na(Label) & Label != "" & Label != "g__")  # remove unclassified/missing
 
 top_sps_named <- significant_indicators %>%
   left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
   filter(!grepl("NA", cluster))
-top_sps_named <- top_sps_named %>%
-  filter(Label != "Unclassified")
 
 
-# --- 10. Plot Significant Indicator Families ---
+# --- 10. Plot ---
+custom_colors <- c(
+  "male_Control" = "cyan",
+  "female_Control" = "mediumpurple",
+  "male_Mild" = "steelblue",
+  "female_Mild" = "#d62728",
+  "male_Severe" = "mediumturquoise",
+  "female_Severe" = "#e377c2",
+  "male_Deceased" = "springgreen",
+  "female_Deceased" = "orchid1"
+)
+
 isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill = cluster)) +
   geom_col() +
   coord_flip() +
   scale_y_continuous(limits = c(0, 1.0)) +
+  scale_fill_manual(values = custom_colors) +  
   labs(
-    x = "Family",
+    x = "Genus",
     y = "Indicator Value",
     fill = "Sex-Severity Group",
-    title = "Significant Indicator Families"
+    title = "Significant Indicator Genera"
   ) +
   theme_minimal() +
   theme(
@@ -135,6 +136,5 @@ isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill =
   )
 
 print(isa_plot)
-
-ggsave("indicator_species_family_plot.png",
+ggsave("indicator_species_genus_plot_custom_colors.png",
        plot = isa_plot, width = 10, height = 15, dpi = 300)
