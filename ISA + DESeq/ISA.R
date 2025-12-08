@@ -1,6 +1,4 @@
-
 # --- 1. Load Libraries ---
-
 library(phyloseq)
 library(ggplot2)
 library(tidyverse)
@@ -12,184 +10,131 @@ library(dplyr)
 library(tidyr)
 library(tibble)
 
-# --- 2. Loading Files ---
+setwd("/Users/lunakurokawa/Desktop/Group_Project_11")
 
+# --- 2. Load Data ---
 metaFP <- "Mexico Dataset QIIME2 files/covid_mex_metadata.tsv"
-meta <- read.delim(file=metaFP,sep = "\t")
+meta <- read.delim(metaFP, sep = "\t")
 
 otuFP <- "Mexico_Dataset_QIIME2_files/mexico-feature-table.txt"
-otu <- read.delim(file=otuFP,sep = "\t", skip = 1)
+otu <- read.delim(otuFP, sep = "\t", skip = 1)
 
 taxFP <- "Mexico_Dataset_QIIME2_files/mexico-taxonomy.tsv"
-tax <- read.delim(file=taxFP,sep = "\t")
+tax <- read.delim(taxFP, sep = "\t")
 
 phyFP <- "Mexico_Dataset_QIIME2_files/mexico-tree.nwk"
 phy <- read.tree(phyFP)
 
-# --- 3. Phyloseq Data Prep ---
-
-otu_mat <- as.matrix(otu[,-1])
+# --- 3. Phyloseq Prep ---
+# OTU table
+otu_mat <- as.matrix(otu[, -1])
 rownames(otu_mat) <- otu$`X.OTU.ID`
-OTU <- otu_table(otu_mat,taxa_are_rows = TRUE)
+OTU <- otu_table(otu_mat, taxa_are_rows = TRUE)
 
-meta_df <- as.data.frame(meta[,-1])
-rownames(meta_df) <- meta$`sample.id`
+# Sample metadata
+meta_df <- meta %>% column_to_rownames("sample.id")
 META <- sample_data(meta_df)
 
-tax_mat <- tax |>
-  select(-Confidence) |>
-  separate(col = Taxon, sep=';',
-           into = c("Domain","Phylum",'Class','Order',
-                    'Family','Genus','Species')) |>
-  as.matrix()
-tax_mat <- tax_mat[,-1]
-rownames(tax_mat) <- tax$`Feature.ID`
-TAX <- tax_table(tax_mat)
+# Taxonomy table
+tax_mat <- tax %>%
+  select(-Confidence) %>%
+  separate(Taxon, into = c("Domain","Phylum","Class","Order","Family","Genus","Species"),
+           sep = ";", fill = "right", extra = "merge") %>%
+  as.data.frame(stringsAsFactors = FALSE)
 
-ps <- phyloseq(OTU,META,TAX,phy)
+tax_mat2 <- as.matrix(tax_mat[,-1])
+rownames(tax_mat2) <- tax$Feature.ID
 
-# --- 4. Separate phyloseq object into sex-severity groups ---
+# Construct phyloseq object
+TAX <- tax_table(tax_mat2)
+ps <- phyloseq(OTU, TAX, META, phy)
 
+# --- 4. Define sex-severity groups ---
 meta <- data.frame(sample_data(ps), stringsAsFactors = FALSE)
 meta$Severity <- NA_character_
 meta$Severity[grepl("asymptomatic", tolower(meta$Group))] <- "Control"
-meta$Severity[grepl("ambulatory positive",   tolower(meta$Group))] <- "Mild"
+meta$Severity[grepl("ambulatory positive", tolower(meta$Group))] <- "Mild"
 meta$Severity[grepl("hospitalized positive", tolower(meta$Group))] <- "Severe"
-meta$Severity[grepl("Deceased hospitalized",   tolower(meta$Group))] <- "Fatal"
+meta$Severity[grepl("deceased hospitalized", tolower(meta$Group))] <- "Deceased"
 
-sample_data(ps) <- sample_data(meta)
-
-meta <- data.frame(sample_data(ps))
 meta$Group_combined <- paste(meta$sex, meta$Severity, sep = "_")
 sample_data(ps) <- sample_data(meta)
 
+# --- 5. Collapse to Genus Level ---
+ps_genus <- tax_glom(ps, taxrank = "Genus", NArm = TRUE)
 
-# --- 5. Run Indicator Species Analysis (ISA) ---
+# --- 6. Prepare data for ISA ---
+otu_mat <- as.data.frame(t(otu_table(ps_genus)))
+meta_df <- data.frame(sample_data(ps_genus), stringsAsFactors = FALSE)
 
-otu_mat <- as.data.frame(t(otu_table(ps)))
-
-meta_df <- data.frame(sample_data(ps), stringsAsFactors = FALSE)
-
+# Keep only samples with non-NA Group_combined
 meta_clean <- meta_df[!is.na(meta_df$Group_combined), ]
-
 otu_clean <- otu_mat[rownames(meta_clean), ]
-
 otu_clean[is.na(otu_clean)] <- 0
 
-isa_mpt <- multipatt(otu_clean, meta_clean$Group_combined,
-                     func = "IndVal.g", duleg = TRUE,
-                     control = how(nperm = 999))
+# --- 7. Run Indicator Species Analysis ---
+isa_mpt <- multipatt(
+  otu_clean,
+  meta_clean$Group_combined,
+  func = "IndVal.g",
+  duleg = TRUE,
+  control = how(nperm = 999)
+)
 
 summary(isa_mpt, indvalcomp = TRUE, alpha = 0.05)
 
-
-# --- 6. Programmatically Extract Significant Results (p.value <= 0.05) ---
-
+# --- 8. Extract Significant Results (p <= 0.05) ---
 sig_table <- data.frame(isa_mpt$sign) %>%
-  rownames_to_column(var = "OTU") %>%
+  rownames_to_column("OTU") %>%
   filter(p.value <= 0.05)
 
 group_names <- colnames(isa_mpt$comb)
-
 sig_table$cluster <- group_names[sig_table$index]
 
 significant_indicators <- sig_table %>%
   select(OTU, stat, p.value, cluster)
 
-print(head(significant_indicators))
-
-
-# --- 7. Annotate Results with Taxonomy ---
-
-
-tax_df <- as.data.frame(tax_table(ps)) %>%
-  rownames_to_column(var = "OTU") %>%
-  
-  mutate(
-    Species = na_if(Species, "s__"), 
-    Genus = na_if(Genus, "g__"),   
-    Family = na_if(Family, "f__"), 
-    Order = na_if(Order, "o__"),   
-    Class = na_if(Class, "c__"),  
-    Phylum = na_if(Phylum, "p__"), 
-    Domain = na_if(Domain, "d__")  
-  ) %>%
-  
-  
-  mutate(
-    Label = coalesce(Species, Genus, Family, Order, Class, Phylum, Domain),
-    Label = ifelse(is.na(Label), "Unclassified", Label)
-  )
-
+# --- 9. Annotate with Genus Names ---
+tax_df <- as.data.frame(tax_table(ps_genus)) %>%
+  rownames_to_column("OTU") %>%
+  mutate(Label = Genus) %>% 
+  filter(!is.na(Label) & Label != "" & Label != "g__")  # remove unclassified/missing
 
 top_sps_named <- significant_indicators %>%
   left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
-
   filter(!grepl("NA", cluster))
 
 
-# --- 8. Plot ---
+# --- 10. Plot ---
+custom_colors <- c(
+  "male_Control" = "cyan",
+  "female_Control" = "mediumpurple",
+  "male_Mild" = "steelblue",
+  "female_Mild" = "#d62728",
+  "male_Severe" = "mediumturquoise",
+  "female_Severe" = "#e377c2",
+  "male_Deceased" = "springgreen",
+  "female_Deceased" = "orchid1"
+)
+
 isa_plot <- ggplot(top_sps_named, aes(x = reorder(Label, stat), y = stat, fill = cluster)) +
   geom_col() +
-  coord_flip() + 
-  # CRITICAL FIX: Ensure the Indicator Value (now the X-axis after coord_flip)
-  # is capped at the theoretical maximum of 1.0.
-  scale_y_continuous(limits = c(0, 1.0)) + # Map to the original y-axis (stat)
+  coord_flip() +
+  scale_y_continuous(limits = c(0, 1.0)) +
+  scale_fill_manual(values = custom_colors) +  
   labs(
-    x = "Taxonomy (Taxa Sorted by Indicator Value)",
-    y = "Indicator Value (stat)",
+    x = "Genus",
+    y = "Indicator Value",
     fill = "Sex-Severity Group",
-    title = "Significant Indicator Species (IndVal Max = 1.0)"
+    title = "Significant Indicator Genera"
   ) +
   theme_minimal() +
   theme(
-    legend.position = "bottom", 
+    legend.position = "bottom",
     plot.title = element_text(hjust = 0.5, face = "bold"),
-    plot.subtitle = element_text(hjust = 0.5),
-    panel.grid.minor.y = element_blank() # Clean up the vertical grid lines
+    panel.grid.minor.y = element_blank()
   )
 
 print(isa_plot)
-ggsave("indicator_species_plot.png", plot = isa_plot, width = 10, height = 15, dpi = 300)
-
-
-
-
-
-# --- Optional - For top 20 Significant Taxa ---
-
-#top_sps_named <- significant_indicators %>%
-# left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
-
-# arrange(desc(stat)) %>%  
-# slice_head(n = 20)     
-
-
-
-# --- Optional - Table of Taxon + Indicator Value ---
-
-#final_isa_table <- sig_table %>%
- # left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
-  
-  #filter(!grepl("NA", cluster)) %>%
-
- # select(Taxon_Label = Label, 
-      #   Indicated_Group = cluster, 
-      #   Indicator_Value_Stat = stat, 
-      #   P_Value = p.value) %>%
-  
- # filter(Taxon_Label != "Unclassified") %>%
- 
- # arrange(desc(Indicator_Value_Stat)) %>%
- 
-#  mutate(
-  #  Indicator_Value_Stat = round(Indicator_Value_Stat, 3),
-  #  P_Value = format.pval(P_Value, digits = 4)
-#  )
-
-#cat("\n\n#################################################################\n")
-#cat("--- Significant Indicator Species Table (p-value <= 0.05) ---\n")
-#cat("#################################################################\n\n")
-
-#print(as.data.frame(final_isa_table), max.print = 999) 
-
+ggsave("indicator_species_genus_plot_custom_colors.png",
+       plot = isa_plot, width = 10, height = 15, dpi = 300)
