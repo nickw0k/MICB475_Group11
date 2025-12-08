@@ -39,9 +39,9 @@ covid_mex_metadata_edited <- covid_mex_metadata_df %>%
   mutate(Group = case_when(
     grepl("asymptomatic", Group, ignore.case = TRUE) ~ "Asymptomatic",
     grepl("ambulatory negative", Group, ignore.case = TRUE) ~ "Mild negative",
-    grepl("ambulatory positive", Group, ignore.case = TRUE) ~ "Mild positive",
+    grepl("ambulatory positive", Group, ignore.case = TRUE) ~ "Mild",
     grepl("hospitalized positive", Group, ignore.case = TRUE) &
-      !grepl("deceased", Group, ignore.case = TRUE) ~ "Severe positive",
+      !grepl("deceased", Group, ignore.case = TRUE) ~ "Severe",
     grepl("deceased", Group, ignore.case = TRUE) ~ "Deceased",
     TRUE ~ "Unknown"   # fallback for unexpected entries
   )) %>%
