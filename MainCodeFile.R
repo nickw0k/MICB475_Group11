@@ -266,10 +266,7 @@ plot_sex_bar <- function(res_tbl, title_stub, out_png,
       drop = FALSE
     ) +
     labs(
-      title = paste0(title_stub, " (shrunken log2FC; FDR < ", alpha,
-                     ", meanNorm(sev) ≥ ", min_meanNorm_sev,
-                     ifelse(min_prev_sev > 0, paste0(", prev(sev) ≥ ", min_prev_sev), ""),
-                     ")"),
+      title = paste0(title_stub, " (shrunken log2FC ± 95% CI, FDR<", alpha, ")."),
       x = "shrunken log2 fold change (F vs M; >0 enriched in females)",
       y = "MetaCyc pathway",
       fill = ""
@@ -322,10 +319,7 @@ plot_sex_dot <- function(res_tbl, title_stub, out_png,
                                   "Enriched in males"   = "#1E88E5"),
                        drop = FALSE) +
     labs(
-      title = paste0(title_stub, " (shrunken log2FC ±95% CI; FDR < ", alpha,
-                     ", meanNorm(sev) ≥ ", min_meanNorm_sev,
-                     ifelse(min_prev_sev > 0, paste0(", prev(sev) ≥ ", min_prev_sev), ""),
-                     ")"),
+      title = paste0(title_stub, " (shrunken log2FC ± 95% CI, FDR<", alpha, ")."),
       x = "shrunken log2 fold change (F vs M; >0 enriched in females)",
       y = "MetaCyc pathway",
       color = ""
@@ -411,7 +405,7 @@ for (i in seq_len(nrow(sex_contrasts))) {
   all_res[[lab]] <- res_tbl
 }
 
-# Sig-count table derived from the SAME 17b shrunken results (recommended) ----
+# Sig-count table derived from the SAME shrunken results ----
 # Counts are among pathways that:
 # (i) have padj (not NA) AND (ii) pass meanNorm_sev >= min_meanNorm_sev (and prev_sev >= min_prev_sev)
 # so n_total/n_sig/prop_sig matches the plotted universe.
