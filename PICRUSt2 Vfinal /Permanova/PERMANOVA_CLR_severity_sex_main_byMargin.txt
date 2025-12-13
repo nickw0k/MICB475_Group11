@@ -1,0 +1,13 @@
+Permutation test for adonis under reduced model
+Marginal effects of terms
+Permutation: free
+Number of permutations: 999
+
+adonis2(formula = clr_dist ~ severity + sex_short, data = metadata, by = "margin")
+           Df SumOfSqs      R2      F Pr(>F)    
+severity    3     6653 0.09050 5.0451  0.001 ***
+sex_short   1      618 0.00840 1.4055  0.136    
+Residual  151    66374 0.90286                  
+Total     155    73515 1.00000                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

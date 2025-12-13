@@ -1,0 +1,5 @@
+contrast	severity	n_total	n_sig	prop_sig
+Asymp_F_vs_Asymp_M	Asymp	412	0	0
+Mild+_F_vs_Mild+_M	Mild+	432	0	0
+Severe+_F_vs_Severe+_M	Severe+	438	26	0.0593607305936073
+Deceased_F_vs_Deceased_M	Deceased	427	60	0.1405152224824356

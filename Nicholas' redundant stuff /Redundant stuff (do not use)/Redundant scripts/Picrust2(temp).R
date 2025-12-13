@@ -93,6 +93,31 @@ metadata <- as.data.frame(metadata)
 rownames(metadata) <- metadata$`sample-id`
 metadata$sample_name <- metadata$`sample-id`
 
+#### 7b. Drop any samples that STILL have NA in severity_sex (and remove them from abundance) ####
+
+# Identify bad samples
+bad_ids <- metadata$`sample-id`[is.na(metadata$severity_sex)]
+
+if (length(bad_ids) > 0) {
+  # Drop them from metadata
+  metadata <- metadata[!metadata$`sample-id` %in% bad_ids, ]
+  
+  # Drop their columns from the abundance matrix
+  keep_cols_final <- c("pathway",
+                       setdiff(colnames(abundance_data_filtered)[-1], bad_ids))
+  abundance_data_filtered <- abundance_data_filtered[, keep_cols_final, drop = FALSE]
+}
+
+# Re-align order one last time, just to be safe
+abun_samples <- colnames(abundance_data_filtered)[-1]
+metadata <- metadata[match(abun_samples, metadata$`sample-id`), ]
+rownames(metadata) <- metadata$`sample-id`
+metadata$sample_name <- metadata$`sample-id`
+
+# Make severity_sex a simple factor (no manual level forcing that might create NAs)
+metadata$severity_sex <- droplevels(factor(metadata$severity_sex))
+
+
 #### 8. Differential abundance testing at pathway level (DESeq2 on severity_sex) ####
 abundance_daa_results_df <- pathway_daa(
   abundance  = abundance_data_filtered %>% tibble::column_to_rownames("pathway"),
