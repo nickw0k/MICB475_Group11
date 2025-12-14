@@ -5,9 +5,6 @@ library(tidyverse)
 library(indicspecies)
 library(ape)
 library(vegan)
-library(dplyr)
-library(tidyr)
-library(tibble)
 
 setwd("/Users/lunakurokawa/Desktop/Group_Project_11")
 
