@@ -42,43 +42,46 @@ ps_df <- psmelt(ps_both) %>%
   left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
   filter(!is.na(Label) & !is.na(Group_combined))
 
-# --- 6. Summarize relative abundance per sample ---
-plot_data <- ps_df %>%
+# --- 6. Summarize ABSOLUTE abundance per sample (REVISED) ---
+plot_data_abs <- ps_df %>%
   group_by(Sample, Group_combined, Label) %>%
   summarize(sample_abundance = sum(Abundance), .groups = "drop") %>%
-  group_by(Sample) %>%
-  mutate(rel_abundance = sample_abundance / sum(sample_abundance)) %>%
   ungroup() %>%
+  # Summarize the mean ABSOLUTE count per group and genus
   group_by(Group_combined, Label) %>%
-  summarize(mean_rel_abundance = mean(rel_abundance), .groups = "drop")
+  summarize(mean_absolute_abundance = mean(sample_abundance), .groups = "drop") %>%
+  # Add a pseudocount of 1 to handle zero values for the Log transformation
+  mutate(log10_absolute_abundance = log10(mean_absolute_abundance + 1))
 
-# --- 7. Set x-axis order ---
+
+# --- 7. Set x-axis order (unchanged) ---
 group_levels <- c(
   "male_Control", "female_Control",
   "male_Mild", "female_Mild",
   "male_Severe", "female_Severe",
   "male_Deceased", "female_Deceased"
 )
-plot_data$Group_combined <- factor(plot_data$Group_combined, levels = group_levels)
+plot_data_abs$Group_combined <- factor(plot_data_abs$Group_combined, levels = group_levels)
 
-# --- 8. Color palette ---
-unique_genera <- sort(unique(plot_data$Label))
+# --- 8. Color palette (unchanged) ---
+unique_genera <- sort(unique(plot_data_abs$Label))
 palette <- grDevices::colorRampPalette(c("lightskyblue", "springgreen4", "yellow", "magenta"))(length(unique_genera))
 
-# --- 9. Plot 100% stacked bar chart ---
-stacked_plot <- ggplot(plot_data, aes(
+# --- 9. Plot Log10 Stacked Bar Chart (REVISED PLOT) ---
+log_stacked_plot <- ggplot(plot_data_abs, aes(
   x = Group_combined,
-  y = mean_rel_abundance,
+  # Use the log10-transformed mean absolute abundance for the stack height
+  y = log10_absolute_abundance,
   fill = Label
 )) +
   geom_bar(stat = "identity") +
-  scale_y_continuous(labels = scales::percent) +
   scale_fill_manual(values = palette) +
   theme_minimal() +
   labs(
-    title = "Genus-Level ASVs Significant in Both ISA & DESeq2",
+    title = "Mean Absolute Abundance of Significant Genera (Log10 Stack)",
     x = "Sex–Severity Group",
-    y = "Mean Relative Abundance",
+    # Y-axis label reflects the transformation
+    y = "Mean Absolute Abundance (Log10(Counts + 1))",
     fill = "Genus"
   ) +
   theme(
@@ -92,6 +95,6 @@ stacked_plot <- ggplot(plot_data, aes(
     legend.title = element_text(size = 9)
   )
 
-print(stacked_plot)
-ggsave("stacked_genus_relative_abundance_noNA.png", stacked_plot, width = 12, height = 9, dpi = 300)
+print(log_stacked_plot)
+ggsave("stacked_genus_log10_absolute_abundance.png", log_stacked_plot, width = 12, height = 9, dpi = 300)
 
