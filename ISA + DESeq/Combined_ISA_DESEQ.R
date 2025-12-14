@@ -5,12 +5,20 @@ library(phyloseq)
 library(tibble)
 library(forcats)
 
-# --- 2. Get OTUs significant in BOTH ISA and DESeq2 ---
-isa_otus <- significant_indicators$OTU 
-deseq_otus <- deseq_all$OTU 
-both_otus <- intersect(isa_otus, deseq_otus)
 
-# Prune phyloseq to only these OTUs
+# --- 2. Get OTUs significant in ISA and DESeq2 ---
+
+
+isa_otus <- significant_indicators$OTU 
+
+deseq_sig_otus <- deseq_all %>%
+  filter(!is.na(padj) & padj <= 0.05) %>%
+  pull(OTU) %>%
+  unique()
+
+both_otus <- intersect(isa_otus, deseq_sig_otus)
+
+# Prune phyloseq to only these significant OTUs
 ps_both <- prune_taxa(both_otus, ps)
 
 # --- 3. Clean metadata and define Group_combined ---
@@ -41,8 +49,17 @@ ps_df <- psmelt(ps_both) %>%
   left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
   filter(!is.na(Label) & !is.na(Group_combined))
 
+# --- 5b. FILTER: Manually exclude known high-abundance commensals ---
+
+# Define the bulk commensal genera to exclude based on literature/high baseline abundance.
+commensal_genera_to_exclude <- c("Veillonella", "Prevotella_7")
+
+ps_df_filtered <- ps_df %>%
+  filter(!Label %in% commensal_genera_to_exclude)
+# NOTE: If your plot still looks dominated by one genus, add that genus's name here.
+
 # --- 6. Summarize ABSOLUTE abundance per sample ---
-plot_data_abs <- ps_df %>%
+plot_data_abs <- ps_df_filtered %>% # **** Using the filtered object ****
   group_by(Sample, Group_combined, Label) %>%
   summarize(sample_abundance = sum(Abundance), .groups = "drop") %>%
   ungroup() %>%
@@ -64,9 +81,12 @@ plot_data_abs$Group_combined <- factor(plot_data_abs$Group_combined, levels = gr
 
 # --- 8. Color palette ---
 unique_genera <- sort(unique(plot_data_abs$Label))
-palette <- grDevices::colorRampPalette(c("lightskyblue", "springgreen4", "yellow", "magenta"))(length(unique_genera))
+palette <- grDevices::colorRampPalette(c( "lightgreen", "#0072B8", "#009E73", "turquoise", "#56B4E8", "#3366CC", "lightblue"))(length(unique_genera))
 
-# --- 9. Plot Log10 Stacked Bar Chart ---
+
+
+
+# --- 9. Plot Log10 Stacked Bar Chart  ---
 log_stacked_plot <- ggplot(plot_data_abs, aes(
   x = Group_combined,
   # Use the log10-transformed mean absolute abundance for the stack height
@@ -77,7 +97,7 @@ log_stacked_plot <- ggplot(plot_data_abs, aes(
   scale_fill_manual(values = palette) +
   theme_minimal() +
   labs(
-    title = "Mean Absolute Abundance of Significant Genera (Log10 Stack)",
+    title = "Absolute Abundance of Significant, Non-Commensal Genera (Log10 Stack)",
     x = "Sex–Severity Group",
     # Y-axis label reflects the transformation
     y = "Mean Absolute Abundance (Log10(Counts + 1))",
@@ -95,5 +115,5 @@ log_stacked_plot <- ggplot(plot_data_abs, aes(
   )
 
 print(log_stacked_plot)
-ggsave("stacked_genus_log10_absolute_abundance.png", log_stacked_plot, width = 12, height = 9, dpi = 300)
+ggsave("stacked_genus_log10_absolute_abundance_non_commensal.png", log_stacked_plot, width = 12, height = 9, dpi = 300)
 
