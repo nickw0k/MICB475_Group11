@@ -2,7 +2,6 @@
 library(phyloseq)
 library(ggplot2)
 library(tidyverse)
-library(microbiome)
 library(indicspecies)
 library(ape)
 library(vegan)
