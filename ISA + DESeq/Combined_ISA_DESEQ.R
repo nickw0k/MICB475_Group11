@@ -2,7 +2,6 @@
 library(dplyr)
 library(ggplot2)
 library(phyloseq)
-library(tidyr)
 library(tibble)
 library(forcats)
 
