@@ -41,7 +41,7 @@ ps_df <- psmelt(ps_both) %>%
   left_join(tax_df %>% select(OTU, Label), by = "OTU") %>%
   filter(!is.na(Label) & !is.na(Group_combined))
 
-# --- 6. Summarize ABSOLUTE abundance per sample (REVISED) ---
+# --- 6. Summarize ABSOLUTE abundance per sample ---
 plot_data_abs <- ps_df %>%
   group_by(Sample, Group_combined, Label) %>%
   summarize(sample_abundance = sum(Abundance), .groups = "drop") %>%
@@ -53,7 +53,7 @@ plot_data_abs <- ps_df %>%
   mutate(log10_absolute_abundance = log10(mean_absolute_abundance + 1))
 
 
-# --- 7. Set x-axis order (unchanged) ---
+# --- 7. Set x-axis order ---
 group_levels <- c(
   "male_Control", "female_Control",
   "male_Mild", "female_Mild",
@@ -62,11 +62,11 @@ group_levels <- c(
 )
 plot_data_abs$Group_combined <- factor(plot_data_abs$Group_combined, levels = group_levels)
 
-# --- 8. Color palette (unchanged) ---
+# --- 8. Color palette ---
 unique_genera <- sort(unique(plot_data_abs$Label))
 palette <- grDevices::colorRampPalette(c("lightskyblue", "springgreen4", "yellow", "magenta"))(length(unique_genera))
 
-# --- 9. Plot Log10 Stacked Bar Chart (REVISED PLOT) ---
+# --- 9. Plot Log10 Stacked Bar Chart ---
 log_stacked_plot <- ggplot(plot_data_abs, aes(
   x = Group_combined,
   # Use the log10-transformed mean absolute abundance for the stack height
