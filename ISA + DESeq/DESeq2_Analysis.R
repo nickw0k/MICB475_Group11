@@ -115,7 +115,8 @@ deseq_all <- bind_rows(results_list)
 # --- 9. Annotate genera ---
 deseq_all <- left_join(deseq_all, tax_df_genus, by = "OTU")
 
-# --- 10. Filter significant genera ---
+# --- 10. Filter significant genera (REVISED to filter contrasts) ---
+
 if(!"padj" %in% colnames(deseq_all)) {
   sig_deseq <- deseq_all %>% filter(!is.na(pvalue) & pvalue <= 0.05)
 } else {
@@ -124,73 +125,106 @@ if(!"padj" %in% colnames(deseq_all)) {
 
 sig_deseq <- sig_deseq %>% filter(!is.na(log2FoldChange), !is.na(Label)) %>% mutate(Label = as.character(Label))
 sig_deseq_plot <- sig_deseq
+
+
+severity_levels <- c("Control", "Mild", "Severe", "Deceased")
+
+desired_contrasts <- c(
+  paste0("male_", severity_levels, "_vs_female_", severity_levels),
+  paste0("female_", severity_levels, "_vs_male_", severity_levels)
+)
+
+
+filtered_contrasts <- intersect(desired_contrasts, unique(sig_deseq_plot$contrast))
+
+sig_deseq_plot <- sig_deseq_plot %>% filter(contrast %in% filtered_contrasts)
+
 contrasts <- unique(sig_deseq_plot$contrast)
 
+
+
 # --- 11a. Log2Fold Bar Plots ---
-for (c in contrasts) {
-  df <- sig_deseq_plot %>% filter(contrast == c)
-  df <- df %>% mutate(Label = fct_reorder(Label, log2FoldChange),
-                      direction = ifelse(log2FoldChange > 0, "Up", "Down"))
-  
-  groups <- unlist(strsplit(c, "_vs_"))
-  group1 <- groups[1]; group2 <- groups[2]
-  
-  df <- df %>% mutate(direction_label = case_when(
-    direction == "Up" ~ paste("Higher in", group1),
-    direction == "Down" ~ paste("Higher in", group2)
-  ))
-  
-  color_mapping <- setNames(c("cornflowerblue", "plum2"),
-                            c(paste("Higher in", group1), paste("Higher in", group2)))
-  
-  p <- ggplot(df, aes(x = Label, y = log2FoldChange, fill = direction_label)) +
-    geom_col(show.legend = TRUE) +
-    coord_flip() +
-    theme_minimal() +
-    labs(title = paste0("Significant Genera — ", c),
-         x = "Genus",
-         y = "log2 Fold Change",
-         fill = "Abundance Difference") +
-    scale_fill_manual(values = color_mapping) +
-    theme(axis.text.y = element_text(size = 9),
-          axis.text.x = element_text(size = 9),
-          plot.title = element_text(hjust = 0.5))
-  
-  ggsave(filename = paste0("DESeq2_Genus_", c, ".png"), plot = p, width = 10, height = 6, dpi = 300)
+if (length(contrasts) == 0) {
+  print("Skipping Bar Plots: No significant genera found for the Male vs Female same-severity comparisons.")
+} else {
+  for (c in contrasts) {
+    df <- sig_deseq_plot %>% filter(contrast == c)
+    
+    # Extract groups and sex for dynamic labeling
+    groups <- unlist(strsplit(c, "_vs_"))
+    group1 <- groups[1]; group2 <- groups[2]
+    sex1 <- strsplit(group1, "_")[[1]][1] 
+    sex2 <- strsplit(group2, "_")[[1]][1]
+    
+    df <- df %>% mutate(Label = fct_reorder(Label, log2FoldChange),
+                        direction = ifelse(log2FoldChange > 0, "Up", "Down"))
+    
+    df <- df %>% mutate(direction_label = case_when(
+      direction == "Up" ~ paste("Higher in", sex1),
+      direction == "Down" ~ paste("Higher in", sex2)
+    ))
+    
+    color_mapping <- setNames(c("cornflowerblue", "plum2"),
+                              c(paste("Higher in", sex1), paste("Higher in", sex2)))
+    
+    p <- ggplot(df, aes(x = Label, y = log2FoldChange, fill = direction_label)) +
+      geom_col(show.legend = TRUE) +
+      coord_flip() +
+      theme_minimal() +
+      labs(title = paste0("Significant Genera — ", c),
+           x = "Genus",
+           y = "log2 Fold Change",
+           fill = "Abundance Difference") +
+      scale_fill_manual(values = color_mapping) +
+      theme(axis.text.y = element_text(size = 9),
+            axis.text.x = element_text(size = 9),
+            plot.title = element_text(hjust = 0.5))
+    
+    ggsave(filename = paste0("DESeq2_Genus_", c, ".png"), plot = p, width = 10, height = 6, dpi = 300)
+  }
 }
 
 # --- 11b. Volcano Plots ---
-for (c in contrasts) {
-  df <- sig_deseq_plot %>% filter(contrast == c)
-  df_volcano <- df %>% filter(!is.na(padj), !is.na(log2FoldChange)) %>%
-    mutate(neglog10_padj = -log10(padj))
-  
-  groups <- unlist(strsplit(c, "_vs_"))
-  group1 <- groups[1]; group2 <- groups[2]
-  
-  df_volcano <- df_volcano %>% mutate(significance = case_when(
-    padj < 0.05 & log2FoldChange > 0 ~ paste("Higher in", group1),
-    padj < 0.05 & log2FoldChange < 0 ~ paste("Higher in", group2),
-    TRUE ~ "Not Significant"
-  ))
-  
-  color_mapping <- setNames(c("#1f78b4", "#e31a1c", "grey70"),
-                            c(paste("Higher in", group1),
-                              paste("Higher in", group2),
-                              "Not Significant"))
-  
-  volcano_plot <- ggplot(df_volcano, aes(x = log2FoldChange, y = neglog10_padj)) +
-    geom_point(aes(color = significance), size = 2, alpha = 0.7) +
-    geom_vline(xintercept = 0, linetype = "dashed") +
-    geom_hline(yintercept = -log10(0.05), linetype = "dotted") +
-    scale_color_manual(values = color_mapping) +
-    theme_minimal() +
-    labs(title = paste0("Volcano Plot — ", c),
-         x = "log2 Fold Change",
-         y = "-log10(adj p-value)",
-         color = "Significance") +
-    theme(plot.title = element_text(hjust = 0.5, face = "bold"))
-  
-  ggsave(filename = paste0("Volcano_Genus_", c, ".png"),
-         plot = volcano_plot, width = 8, height = 8, dpi = 300)
+if (length(contrasts) == 0) {
+  print("Skipping Volcano Plots: No significant Male vs Female same-severity comparisons.")
+} else {
+  for (c in contrasts) {
+    df <- sig_deseq_plot %>% filter(contrast == c)
+    
+    # Use all results for the volcano plot background
+    df_volcano <- deseq_all %>% filter(contrast == c) %>% 
+      filter(!is.na(padj), !is.na(log2FoldChange)) %>%
+      mutate(neglog10_padj = -log10(padj))
+    
+    groups <- unlist(strsplit(c, "_vs_"))
+    group1 <- groups[1]; group2 <- groups[2]
+    sex1 <- strsplit(group1, "_")[[1]][1] 
+    sex2 <- strsplit(group2, "_")[[1]][1]
+    
+    df_volcano <- df_volcano %>% mutate(significance = case_when(
+      padj < 0.05 & log2FoldChange > 0 ~ paste("Higher in", sex1),
+      padj < 0.05 & log2FoldChange < 0 ~ paste("Higher in", sex2),
+      TRUE ~ "Not Significant"
+    ))
+    
+    color_mapping <- setNames(c("#1f78b4", "#e31a1c", "grey70"),
+                              c(paste("Higher in", sex1),
+                                paste("Higher in", sex2),
+                                "Not Significant"))
+    
+    volcano_plot <- ggplot(df_volcano, aes(x = log2FoldChange, y = neglog10_padj)) +
+      geom_point(aes(color = significance), size = 2, alpha = 0.7) +
+      geom_vline(xintercept = 0, linetype = "dashed") +
+      geom_hline(yintercept = -log10(0.05), linetype = "dotted") +
+      scale_color_manual(values = color_mapping) +
+      theme_minimal() +
+      labs(title = paste0("Volcano Plot — ", c),
+           x = "log2 Fold Change",
+           y = "-log10(adj p-value)",
+           color = "Significance") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+    
+    ggsave(filename = paste0("Volcano_Genus_", c, ".png"),
+           plot = volcano_plot, width = 8, height = 8, dpi = 300)
+  }
 }
